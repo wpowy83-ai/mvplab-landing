@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- SEO PRIMARY -->
+<title>MVPLab — Criação de MVP em 7 Dias | Agência de Desenvolvimento de Startups no Brasil</title>
+<meta name="description" content="Transforme sua ideia em um MVP funcional em até 7 dias. Desenvolvimento de aplicativos, sites e produtos digitais para startups e empreendedores. Planos a partir de R$1.497. Fale agora!">
+<meta name="keywords" content="criar MVP, desenvolvimento de MVP, MVP para startups, como criar um MVP, agência de desenvolvimento de software, criar aplicativo, desenvolvimento de app barato, MVP Brasil, validar ideia de negócio, criar site profissional, desenvolvimento ágil, produto mínimo viável, startup, lançar produto digital, MVP rápido">
+<meta name="author" content="MVPLab">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.mvplab.app.br">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="MVPLab — Seu MVP em 7 Dias | Do Ideia ao Produto Real">
+<meta property="og:description" content="Agência especializada em criar MVPs para startups e empreendedores brasileiros. Rápido, acessível e funcional. Planos a partir de R$1.497.">
+<meta property="og:url" content="https://www.mvplab.app.br">
+<meta property="og:locale" content="pt_BR">
+
+<!-- Schema.org Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "MVPLab",
+  "description": "Agência especializada em desenvolvimento de MVP para startups e empreendedores brasileiros. Entrega em até 7 dias.",
+  "url": "https://www.mvplab.app.br",
+  "areaServed": "BR",
+  "priceRange": "R$1.497 - R$5.997",
+  "serviceType": ["MVP Development", "Software Development", "App Development", "Web Development"]
+}
+</script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --bg:#0a0a0f;--card:#13131a;--border:#1e1e2e;
+    --purple:#7c3aed;--purple2:#a855f7;--blue:#3b82f6;
+    --green:#10b981;--text:#f1f5f9;--muted:#94a3b8;
+  }
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(20px);background:rgba(10,10,15,0.8);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-size:1.3rem;font-weight:800;background:linear-gradient(135deg,#7c3aed,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .nav-cta{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;border:none;padding:10px 22px;border-radius:8px;font-weight:600;font-size:.9rem;cursor:pointer;transition:.2s;text-decoration:none;}
+  .nav-cta:hover{opacity:.85;transform:translateY(-1px);}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(124,58,237,.25) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-60%);pointer-events:none;}
+  .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);color:#a78bfa;padding:8px 16px;border-radius:999px;font-size:.85rem;font-weight:500;margin-bottom:28px;}
+  .badge span{width:8px;height:8px;background:#7c3aed;border-radius:50%;display:inline-block;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+  h1{font-size:clamp(2.2rem,6vw,4rem);font-weight:900;line-height:1.1;margin-bottom:24px;letter-spacing:-1px;}
+  h1 span{background:linear-gradient(135deg,#a855f7,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .hero-sub{font-size:1.15rem;color:var(--muted);max-width:580px;margin:0 auto 40px;line-height:1.7;}
+  .hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+  .btn-primary{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;border:none;padding:16px 32px;border-radius:10px;font-weight:700;font-size:1rem;cursor:pointer;transition:.2s;text-decoration:none;display:inline-block;}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(124,58,237,.4);}
+  .btn-secondary{background:transparent;color:var(--text);border:1px solid var(--border);padding:16px 32px;border-radius:10px;font-weight:600;font-size:1rem;cursor:pointer;transition:.2s;text-decoration:none;display:inline-block;}
+  .btn-secondary:hover{border-color:var(--purple);color:#a78bfa;}
+  .hero-stats{display:flex;gap:40px;justify-content:center;margin-top:60px;flex-wrap:wrap;}
+  .stat{text-align:center;}
+  .stat-num{font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,#a855f7,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .stat-label{font-size:.85rem;color:var(--muted);margin-top:4px;}
+
+  section{padding:80px 24px;}
+  .container{max-width:1100px;margin:0 auto;}
+  .section-tag{font-size:.8rem;font-weight:600;color:#a78bfa;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;}
+  .section-title{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;margin-bottom:16px;letter-spacing:-.5px;}
+  .section-sub{color:var(--muted);font-size:1rem;line-height:1.7;max-width:560px;}
+
+  /* MVP EXPLAINER */
+  .mvp-section{border-top:1px solid var(--border);}
+  .mvp-flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-top:48px;align-items:center;}
+  .mvp-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;text-align:center;transition:.2s;}
+  .mvp-card.highlight{background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(59,130,246,.15));border-color:rgba(124,58,237,.4);}
+  .mvp-arrow{display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--purple);}
+  .mvp-icon{font-size:2.2rem;margin-bottom:12px;}
+  .mvp-tag{font-size:.72rem;font-weight:700;color:#a78bfa;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;}
+  .mvp-card h3{font-size:1rem;font-weight:700;margin-bottom:8px;}
+  .mvp-card p{font-size:.83rem;color:var(--muted);line-height:1.5;}
+  .mvp-insight{margin-top:32px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);border-radius:12px;padding:20px 28px;display:flex;align-items:flex-start;gap:16px;max-width:760px;}
+  .mvp-insight p{font-size:.92rem;color:var(--muted);line-height:1.6;}
+
+  /* PROBLEMA */
+  .problem{background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(59,130,246,.06));border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:48px;}
+  .problem-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;transition:.2s;}
+  .problem-card:hover{border-color:rgba(124,58,237,.4);}
+  .problem-icon{font-size:2rem;margin-bottom:16px;}
+  .problem-card h3{font-size:1rem;font-weight:700;margin-bottom:8px;}
+  .problem-card p{font-size:.9rem;color:var(--muted);line-height:1.6;}
+
+  /* HOW */
+  .steps{display:flex;flex-direction:column;gap:0;margin-top:48px;position:relative;}
+  .steps::before{content:'';position:absolute;left:28px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--purple),var(--blue));opacity:.3;}
+  .step{display:flex;gap:24px;align-items:flex-start;padding-bottom:40px;position:relative;}
+  .step-num{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;flex-shrink:0;z-index:1;}
+  .step-content h3{font-size:1.1rem;font-weight:700;margin-bottom:8px;margin-top:12px;}
+  .step-content p{color:var(--muted);font-size:.95rem;line-height:1.6;}
+
+  /* FEATURES */
+  .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:48px;}
+  .feature-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;transition:.3s;}
+  .feature-card:hover{border-color:rgba(124,58,237,.5);transform:translateY(-4px);}
+  .feature-icon{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,rgba(124,58,237,.2),rgba(59,130,246,.2));display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:16px;}
+  .feature-card h3{font-size:1rem;font-weight:700;margin-bottom:8px;}
+  .feature-card p{font-size:.88rem;color:var(--muted);line-height:1.6;}
+
+  /* LISTA DE ESPERA */
+  .waitlist{background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(59,130,246,.08));border-top:1px solid rgba(124,58,237,.3);border-bottom:1px solid rgba(124,58,237,.3);}
+  .waitlist-box{max-width:680px;margin:0 auto;text-align:center;}
+  .waitlist-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#f87171;padding:8px 18px;border-radius:999px;font-size:.82rem;font-weight:600;margin-bottom:28px;}
+  .waitlist-badge span{width:8px;height:8px;background:#ef4444;border-radius:50%;display:inline-block;animation:pulse 1.5s infinite;}
+  .waitlist h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;margin-bottom:16px;}
+  .waitlist-offer{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);border-radius:12px;padding:20px 28px;margin:28px 0;text-align:left;}
+  .waitlist-offer h4{color:#34d399;font-size:.9rem;font-weight:700;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;}
+  .waitlist-offer ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+  .waitlist-offer li{font-size:.92rem;color:var(--text);display:flex;align-items:center;gap:10px;}
+  .waitlist-offer li::before{content:'✓';color:#10b981;font-weight:700;}
+  .waitlist-form{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;}
+  .waitlist-input{flex:1;min-width:220px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text);padding:14px 18px;border-radius:10px;font-size:.95rem;font-family:'Inter',sans-serif;outline:none;transition:.2s;}
+  .waitlist-input:focus{border-color:var(--purple);}
+  .waitlist-input::placeholder{color:var(--muted);}
+  .waitlist-btn{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;border:none;padding:14px 28px;border-radius:10px;font-weight:700;font-size:.95rem;cursor:pointer;transition:.2s;white-space:nowrap;}
+  .waitlist-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(124,58,237,.4);}
+  .waitlist-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+  .waitlist-note{font-size:.82rem;color:var(--muted);margin-top:14px;}
+  .waitlist-counter{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:20px;font-size:.88rem;color:var(--muted);}
+  .waitlist-counter strong{color:var(--text);}
+  .success-msg{display:none;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);border-radius:10px;padding:20px;margin-top:16px;text-align:center;}
+  .success-msg h4{color:#34d399;font-weight:700;margin-bottom:8px;}
+  .success-msg p{font-size:.9rem;color:var(--muted);}
+
+  /* PRICING */
+  .pricing{background:linear-gradient(135deg,rgba(124,58,237,.05),rgba(59,130,246,.05));border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:48px;align-items:start;}
+  .price-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:36px;transition:.3s;position:relative;}
+  .price-card:hover{transform:translateY(-6px);}
+  .price-card.featured{border-color:var(--purple);box-shadow:0 0 40px rgba(124,58,237,.2);}
+  .popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;padding:6px 20px;border-radius:999px;font-size:.78rem;font-weight:700;white-space:nowrap;}
+  .plan-name{font-size:.9rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+  .plan-price{font-size:2.4rem;font-weight:900;margin-bottom:4px;}
+  .plan-price span{font-size:1rem;font-weight:500;color:var(--muted);}
+  .plan-desc{font-size:.88rem;color:var(--muted);margin-bottom:24px;line-height:1.5;}
+  .plan-features{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:32px;}
+  .plan-features li{font-size:.9rem;display:flex;align-items:center;gap:10px;}
+  .plan-features li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;}
+  .plan-btn{width:100%;padding:14px;border-radius:10px;font-weight:700;font-size:.95rem;cursor:pointer;transition:.2s;border:none;}
+  .plan-btn.primary{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;}
+  .plan-btn.primary:hover{opacity:.85;}
+  .plan-btn.outline{background:transparent;color:var(--text);border:1px solid var(--border);}
+  .plan-btn.outline:hover{border-color:var(--purple);color:#a78bfa;}
+
+  /* SEO KEYWORDS SECTION */
+  .seo-section{border-top:1px solid var(--border);}
+  .keywords-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:40px;}
+  .keyword-pill{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-size:.88rem;color:var(--muted);display:flex;align-items:center;gap:8px;}
+  .keyword-pill::before{content:'🔍';font-size:.8rem;}
+
+  /* FAQ */
+  .faq-list{display:flex;flex-direction:column;gap:12px;margin-top:48px;max-width:720px;}
+  .faq-item{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+  .faq-q{padding:20px 24px;font-weight:600;font-size:.95rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;}
+  .faq-q:hover{color:#a78bfa;}
+  .faq-arrow{transition:.3s;font-size:1.1rem;flex-shrink:0;}
+  .faq-a{padding:0 24px;font-size:.9rem;color:var(--muted);line-height:1.7;max-height:0;overflow:hidden;transition:.3s;}
+  .faq-item.open .faq-a{max-height:200px;padding:0 24px 20px;}
+  .faq-item.open .faq-arrow{transform:rotate(180deg);}
+
+  /* CTA */
+  .cta-final{text-align:center;padding:100px 24px;}
+  .cta-box{background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(59,130,246,.15));border:1px solid rgba(124,58,237,.3);border-radius:24px;padding:60px 40px;max-width:700px;margin:0 auto;}
+  .cta-box h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:900;margin-bottom:16px;}
+  .cta-box p{color:var(--muted);margin-bottom:36px;font-size:1rem;line-height:1.7;}
+  .cta-wpp{display:inline-flex;align-items:center;gap:12px;background:#25d366;color:#fff;padding:16px 36px;border-radius:12px;font-weight:700;font-size:1.05rem;text-decoration:none;transition:.2s;}
+  .cta-wpp:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(37,211,102,.3);}
+
+  footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;color:var(--muted);font-size:.85rem;}
+
+  @media(max-width:600px){
+    .hero-stats{gap:24px;}
+    .steps::before{left:24px;}
+    .step-num{width:48px;height:48px;}
+    .cta-box{padding:40px 24px;}
+    .waitlist-form{flex-direction:column;}
+    .mvp-arrow{transform:rotate(90deg);}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">MVPLab ⚡</div>
+  <a href="#waitlist" class="nav-cta">Garantir vaga</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="badge"><span></span> Desenvolvimento de MVP em até 7 dias</div>
+    <h1>Sua ideia vira um<br><span>MVP real</span> em dias</h1>
+    <p class="hero-sub">Criamos o <strong>produto mínimo viável</strong> do seu negócio com tecnologia de ponta. Rápido, funcional e pronto para conquistar seus primeiros clientes — sem precisar gastar R$80.000 em agência tradicional.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Quero meu MVP agora</a>
+      <a href="#how" class="btn-secondary">Como funciona?</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">7</div><div class="stat-label">dias em média</div></div>
+      <div class="stat"><div class="stat-num">3x</div><div class="stat-label">mais barato</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">funcional</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- O QUE É MVP -->
+<section class="mvp-section">
+  <div class="container">
+    <div class="section-tag">Antes de tudo</div>
+    <h2 class="section-title">O que é um MVP?</h2>
+    <p class="section-sub"><strong style="color:var(--text)">MVP = Minimum Viable Product</strong> (Produto Mínimo Viável) — é a versão mais simples do seu produto que já resolve um problema real e gera valor. Em vez de gastar meses construindo tudo, você lança o essencial, valida a ideia e cresce com dados reais.</p>
+    <div class="mvp-flow">
+      <div class="mvp-card">
+        <div class="mvp-icon">💡</div>
+        <div class="mvp-tag">Etapa 1</div>
+        <h3>Ideia</h3>
+        <p>Você identifica um problema real e pensa numa solução.</p>
+      </div>
+      <div class="mvp-arrow">→</div>
+      <div class="mvp-card highlight">
+        <div class="mvp-icon">⚡</div>
+        <div class="mvp-tag">Etapa 2 — MVP</div>
+        <h3>Lançar o essencial</h3>
+        <p>Construir só o necessário para validar e conquistar os primeiros clientes.</p>
+      </div>
+      <div class="mvp-arrow">→</div>
+      <div class="mvp-card">
+        <div class="mvp-icon">📈</div>
+        <div class="mvp-tag">Etapa 3</div>
+        <h3>Crescer</h3>
+        <p>Com dados reais e clientes pagantes, você escala com segurança.</p>
+      </div>
+    </div>
+    <div class="mvp-insight">
+      <span style="font-size:1.5rem">✅</span>
+      <p><strong style="color:var(--text)">Resumindo:</strong> MVP não é produto incompleto — é produto inteligente. Instagram, Airbnb e Dropbox começaram como MVPs. É lançar rápido, aprender rápido e crescer sem desperdiçar tempo e dinheiro.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMA -->
+<section class="problem">
+  <div class="container">
+    <div class="section-tag">O problema</div>
+    <h2 class="section-title">Desenvolvimento tradicional trava sua ideia</h2>
+    <p class="section-sub">Enquanto você espera meses e gasta uma fortuna, seus concorrentes lançam e validam. A gente muda isso.</p>
+    <div class="problem-grid">
+      <div class="problem-card"><div class="problem-icon">⏳</div><h3>Meses de espera</h3><p>Agências tradicionais levam 3 a 6 meses para entregar algo básico. O mercado não espera.</p></div>
+      <div class="problem-card"><div class="problem-icon">💸</div><h3>Custo proibitivo</h3><p>Orçamentos de R$80.000 a R$300.000 antes mesmo de validar se a ideia funciona.</p></div>
+      <div class="problem-card"><div class="problem-icon">🔄</div><h3>Retrabalho infinito</h3><p>Sem metodologia ágil, você paga por mudanças que deveriam ser simples e rápidas.</p></div>
+      <div class="problem-card"><div class="problem-icon">😰</div><h3>Freelancer sem entrega</h3><p>Contratou freelancer e ficou sem produto, sem dinheiro e sem resposta? Isso é comum demais.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="container">
+    <div class="section-tag">Como funciona</div>
+    <h2 class="section-title">3 passos para seu MVP no ar</h2>
+    <p class="section-sub">Processo simples, transparente e focado em resultado. Sem surpresas.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Você descreve sua ideia de negócio</h3>
+          <p>Por texto, áudio ou videochamada. Entendemos o problema que você quer resolver, o público-alvo e as funcionalidades essenciais do seu produto digital.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>A gente estrutura e desenvolve seu MVP</h3>
+          <p>Usamos IA + desenvolvimento humano para entregar rápido sem abrir mão da qualidade. Você acompanha o progresso em tempo real.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>MVP no ar, pronto para validar e vender</h3>
+          <p>Entregamos com deploy, domínio e suporte pós-lançamento. Você foca em conquistar seus primeiros clientes e captar investidores.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section style="background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-tag">Diferenciais</div>
+    <h2 class="section-title">Por que a MVPLab é diferente?</h2>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">⚡</div><h3>Entrega em até 7 dias</h3><p>Metodologia ágil focada em lançar rápido, testar com usuários reais e iterar com base em dados.</p></div>
+      <div class="feature-card"><div class="feature-icon">🤖</div><h3>IA + Dev humano</h3><p>Combinamos o melhor da inteligência artificial com experiência de desenvolvedores sênior. Resultado: mais rápido e mais barato.</p></div>
+      <div class="feature-card"><div class="feature-icon">📱</div><h3>App, site ou sistema</h3><p>Desenvolvemos landing pages, aplicativos web, apps mobile e sistemas — tudo responsivo e pronto para qualquer dispositivo.</p></div>
+      <div class="feature-card"><div class="feature-icon">🔗</div><h3>Integrações prontas</h3><p>Pagamentos via PIX e cartão, WhatsApp, e-mail marketing, Google Analytics — tudo integrado desde o primeiro dia.</p></div>
+      <div class="feature-card"><div class="feature-icon">📊</div><h3>Painel administrativo</h3><p>Você gerencia seu produto sem depender de ninguém. Dashboard intuitivo para controlar tudo em tempo real.</p></div>
+      <div class="feature-card"><div class="feature-icon">🛡️</div><h3>Suporte pós-entrega</h3><p>Não sumimos após o deploy. Acompanhamos seu lançamento, corrigimos bugs e garantimos que seu MVP esteja funcionando.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- LISTA DE ESPERA -->
+<section class="waitlist" id="waitlist">
+  <div class="container">
+    <div class="waitlist-box">
+      <div class="waitlist-badge"><span></span> Vagas limitadas este mês</div>
+      <h2 class="section-title">Entre na lista de espera e garanta <span style="background:linear-gradient(135deg,#a855f7,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">condições exclusivas</span></h2>
+      <p style="color:var(--muted);line-height:1.7;margin-bottom:8px;">Trabalhamos com número limitado de projetos por mês para garantir qualidade e prazo. Se não pudermos te atender agora, você entra na lista — e quando abrirmos vaga, você é o primeiro a saber <strong style="color:var(--text)">com um benefício especial</strong>.</p>
+
+      <div class="waitlist-offer">
+        <h4>🎁 Quem entra na lista recebe:</h4>
+        <ul>
+          <li>Desconto de R$300 no projeto quando a vaga abrir</li>
+          <li>Diagnóstico gratuito da sua ideia de MVP</li>
+          <li>Acesso antecipado a novos planos e funcionalidades</li>
+          <li>Prioridade total na fila de projetos</li>
+        </ul>
+      </div>
+
+      <div class="waitlist-form">
+        <input class="waitlist-input" type="text" id="wl-name" placeholder="Seu nome">
+        <input class="waitlist-input" type="email" id="wl-email" placeholder="Seu melhor e-mail">
+        <button class="waitlist-btn" onclick="joinWaitlist()">Garantir minha vaga →</button>
+      </div>
+      <p class="waitlist-note">📵 Sem spam. Você recebe apenas quando abrirmos uma vaga para você.</p>
+
+      <div class="waitlist-counter">
+        <span>🔥</span>
+        <span>Já são <strong id="wl-count">47</strong> pessoas na lista de espera</span>
+      </div>
+
+      <div class="success-msg" id="wl-success">
+        <h4>✅ Você está na lista!</h4>
+        <p>Entraremos em contato assim que abrirmos uma vaga. Fique de olho no seu e-mail — você vai receber seu desconto de R$300 garantido.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-tag">Investimento</div>
+    <h2 class="section-title">Planos por projeto</h2>
+    <p class="section-sub">Sem mensalidade surpresa. Você paga uma vez e recebe um produto completo e funcional.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">R$1.497<span> /projeto</span></div>
+        <div class="plan-desc">Ideal para validar sua ideia com o mínimo necessário e conquistar os primeiros clientes.</div>
+        <ul class="plan-features">
+          <li>Landing page profissional</li>
+          <li>1 funcionalidade core</li>
+          <li>Formulário + WhatsApp integrado</li>
+          <li>Deploy + domínio configurado</li>
+          <li>7 dias de suporte</li>
+        </ul>
+        <button class="plan-btn outline" onclick="window.open('https://wa.me/5512997044683?text=Olá! Tenho interesse no plano Starter da MVPLab','_blank')">Quero o Starter</button>
+      </div>
+      <div class="price-card featured">
+        <div class="popular-badge">⭐ Mais popular</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">R$2.997<span> /projeto</span></div>
+        <div class="plan-desc">MVP completo para quem quer lançar com confiança e já captar os primeiros investidores.</div>
+        <ul class="plan-features">
+          <li>Tudo do Starter</li>
+          <li>MVP completo e funcional</li>
+          <li>Painel administrativo</li>
+          <li>Integração de pagamento</li>
+          <li>Google Analytics configurado</li>
+          <li>30 dias de suporte</li>
+        </ul>
+        <button class="plan-btn primary" onclick="window.open('https://wa.me/5512997044683?text=Olá! Tenho interesse no plano Pro da MVPLab','_blank')">Quero o Pro</button>
+      </div>
+      <div class="price-card">
+        <div class="plan-name">Scale</div>
+        <div class="plan-price">R$5.997<span> /projeto</span></div>
+        <div class="plan-desc">Para negócios que precisam de robustez, automações e suporte dedicado desde o início.</div>
+        <ul class="plan-features">
+          <li>Tudo do Pro</li>
+          <li>Integrações avançadas e CRM</li>
+          <li>App mobile (PWA)</li>
+          <li>Automações e notificações</li>
+          <li>60 dias de suporte</li>
+          <li>Consultoria de lançamento</li>
+        </ul>
+        <button class="plan-btn outline" onclick="window.open('https://wa.me/5512997044683?text=Olá! Tenho interesse no plano Scale da MVPLab','_blank')">Quero o Scale</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEO KEYWORDS ORGANICAS -->
+<section class="seo-section">
+  <div class="container">
+    <div class="section-tag">O que desenvolvemos</div>
+    <h2 class="section-title">Soluções para cada etapa do seu negócio digital</h2>
+    <p class="section-sub">Da ideia ao produto no ar — entregamos o que você precisa para validar, crescer e escalar.</p>
+    <div class="keywords-grid">
+      <div class="keyword-pill">Criação de MVP para startups</div>
+      <div class="keyword-pill">Desenvolvimento de aplicativo</div>
+      <div class="keyword-pill">Landing page profissional</div>
+      <div class="keyword-pill">Sistema web sob medida</div>
+      <div class="keyword-pill">App mobile (iOS e Android)</div>
+      <div class="keyword-pill">Validação de ideia de negócio</div>
+      <div class="keyword-pill">Produto mínimo viável</div>
+      <div class="keyword-pill">Desenvolvimento ágil</div>
+      <div class="keyword-pill">Painel administrativo</div>
+      <div class="keyword-pill">Integração de pagamentos</div>
+      <div class="keyword-pill">Automação de processos</div>
+      <div class="keyword-pill">Software para empreendedores</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-tag">FAQ</div>
+    <h2 class="section-title">Perguntas frequentes sobre MVP</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">O que é MVP e por que preciso de um? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">MVP (Produto Mínimo Viável) é a versão mais simples do seu produto que já resolve um problema real. Em vez de investir meses e fortunas em algo completo, você lança o essencial, valida com usuários reais e cresce com dados — reduzindo risco e aumentando chances de sucesso.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Realmente entregam o MVP em 7 dias? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">Sim! Para os planos Starter e Pro, a entrega média é de 5 a 7 dias úteis após aprovação do briefing. Projetos Scale podem levar até 14 dias dependendo da complexidade das integrações.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Preciso saber programar para contratar a MVPLab? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">Não! Nossa proposta é exatamente essa — você traz a ideia, descreve o problema que quer resolver, e nós cuidamos de tudo tecnicamente. Nenhuma linha de código da sua parte.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Quanto custa desenvolver um MVP no Brasil? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">O mercado tradicional cobra entre R$80.000 e R$300.000 por um MVP completo. Na MVPLab, nossos planos vão de R$1.497 (Starter) a R$5.997 (Scale), com entrega em dias — não meses.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">O produto fica no meu nome e eu tenho o código? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">100%. Ao finalizar o projeto, você recebe todos os acessos — código-fonte, domínio e hospedagem. É seu por completo, sem dependência da MVPLab para operar.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Quais formas de pagamento vocês aceitam? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">Aceitamos PIX, cartão de crédito (parcelado em até 6x) e transferência bancária. Trabalhamos com 50% de entrada e 50% na entrega do projeto.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final" id="contact">
+  <div class="cta-box">
+    <h2>Pronto para tirar sua ideia do papel?</h2>
+    <p>Fale com a gente agora pelo WhatsApp. É rápido, sem compromisso e sem enrolação. Vamos analisar sua ideia gratuitamente.</p>
+    <a class="cta-wpp" href="https://wa.me/5512997044683?text=Olá! Quero saber mais sobre a MVPLab" target="_blank">
+      <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Falar no WhatsApp
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 MVPLab · Agência de Desenvolvimento de MVP · Todos os direitos reservados</p>
+  <p style="margin-top:8px;font-size:.8rem;">Criação de MVP · Desenvolvimento de Aplicativo · Software para Startups · Produto Mínimo Viável Brasil</p>
+</footer>
+
+<script>
+  // =============================================
+  // MAKE WEBHOOK — cole aqui a URL do seu cenário
+  // Exemplo: https://hook.make.com/xxxxxxxxxx
+  // =============================================
+  const MAKE_WEBHOOK_URL = 'COLE_SUA_URL_DO_MAKE_AQUI';
+
+  // FAQ
+  document.querySelectorAll('.faq-q').forEach(q=>{
+    q.addEventListener('click',()=>{
+      const item=q.parentElement;
+      const isOpen=item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+      if(!isOpen) item.classList.add('open');
+    });
+  });
+
+  // Waitlist counter animado
+  let count = 47;
+  setInterval(()=>{
+    if(Math.random() > 0.85){
+      count++;
+      const el = document.getElementById('wl-count');
+      if(el) el.textContent = count;
+    }
+  }, 8000);
+
+  // Waitlist submit com integração Make → Google Sheets
+  async function joinWaitlist(){
+    const name = document.getElementById('wl-name').value.trim();
+    const email = document.getElementById('wl-email').value.trim();
+    if(!name || !email){ alert('Preencha seu nome e e-mail para garantir sua vaga!'); return; }
+    if(!email.includes('@')){ alert('Digite um e-mail válido.'); return; }
+
+    const btn = document.querySelector('.waitlist-btn');
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
+    try {
+      // Envia para Make → Google Sheets
+      if(MAKE_WEBHOOK_URL && MAKE_WEBHOOK_URL !== 'COLE_SUA_URL_DO_MAKE_AQUI') {
+        await fetch(MAKE_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            nome: name,
+            email: email,
+            data: new Date().toLocaleString('pt-BR'),
+            origem: 'landing-page-mvplab'
+          })
+        });
+      }
+    } catch(e) {
+      console.warn('Webhook não configurado ainda:', e);
+    }
+
+    // Mostra mensagem de sucesso independente do webhook
+    document.querySelector('.waitlist-form').style.display='none';
+    document.querySelector('.waitlist-note').style.display='none';
+    document.querySelector('.waitlist-counter').style.display='none';
+    document.getElementById('wl-success').style.display='block';
+    count++;
+    const el = document.getElementById('wl-count');
+    if(el) el.textContent = count;
+  }
+</script>
+</body>
+</html>
