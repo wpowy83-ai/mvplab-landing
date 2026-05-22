@@ -1037,7 +1037,7 @@
 
     try {
       // Envia para Make → Google Sheets
-      if(MAKE_WEBHOOK_URL && MAKE_WEBHOOK_URL !== 'COLE_SUA_URL_DO_MAKE_AQUI') {
+      if(MAKE_WEBHOOK_URL && MAKE_WEBHOOK_URL !== 'https://hook.us2.make.com/3pstooxuvr1cwii98n4kytjv59x2uauv') {
         await fetch(MAKE_WEBHOOK_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
