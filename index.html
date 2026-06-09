@@ -124,6 +124,13 @@
   .waitlist-offer li{font-size:.92rem;color:var(--text);display:flex;align-items:center;gap:10px;}
   .waitlist-offer li::before{content:'✓';color:#10b981;font-weight:700;}
   .waitlist-form{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;}
+  .waitlist-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px;}
+  .waitlist-form-grid .full{grid-column:1/-1;}
+  .waitlist-textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text);padding:14px 18px;border-radius:10px;font-size:.95rem;font-family:'Inter',sans-serif;outline:none;transition:.2s;resize:vertical;min-height:100px;}
+  .waitlist-textarea:focus{border-color:var(--purple);}
+  .waitlist-textarea::placeholder{color:var(--muted);}
+  .waitlist-idea-hint{background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);border-radius:10px;padding:14px 18px;margin-bottom:4px;font-size:.85rem;color:#a78bfa;line-height:1.6;}
+  @media(max-width:600px){.waitlist-form-grid{grid-template-columns:1fr;}}
   .waitlist-input{flex:1;min-width:220px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text);padding:14px 18px;border-radius:10px;font-size:.95rem;font-family:'Inter',sans-serif;outline:none;transition:.2s;}
   .waitlist-input:focus{border-color:var(--purple);}
   .waitlist-input::placeholder{color:var(--muted);}
@@ -334,10 +341,18 @@
         </ul>
       </div>
  
-      <div class="waitlist-form">
-        <input class="waitlist-input" type="text" id="wl-name" placeholder="Seu nome">
+      <div class="waitlist-form-grid">
+        <input class="waitlist-input" type="text" id="wl-name" placeholder="Seu nome completo">
         <input class="waitlist-input" type="email" id="wl-email" placeholder="Seu melhor e-mail">
-        <button class="waitlist-btn" onclick="joinWaitlist()">Garantir minha vaga →</button>
+        <input class="waitlist-input" type="tel" id="wl-phone" placeholder="WhatsApp / Celular (ex: 12 99999-9999)">
+        <input class="waitlist-input" type="text" id="wl-city" placeholder="Sua cidade">
+        <div class="full">
+          <div class="waitlist-idea-hint">💡 <strong>Já temos uma base de aplicativos e sites criados</strong> — por que não compartilha sua ideia inicial? Vamos direcionar você para o especialista ideal da nossa equipe!</div>
+          <textarea class="waitlist-textarea" id="wl-idea" placeholder="Descreva brevemente sua ideia (ex: quero criar um app de agendamentos para salões de beleza...)"></textarea>
+        </div>
+        <div class="full">
+          <button class="waitlist-btn" style="width:100%" onclick="joinWaitlist()">Garantir minha vaga e falar com especialista →</button>
+        </div>
       </div>
       <p class="waitlist-note">📵 Sem spam. Você recebe apenas quando abrirmos uma vaga para você.</p>
  
@@ -510,9 +525,13 @@
  
   // Waitlist submit com integração Make → Google Sheets
   async function joinWaitlist(){
-    const name = document.getElementById('wl-name').value.trim();
+    const name  = document.getElementById('wl-name').value.trim();
     const email = document.getElementById('wl-email').value.trim();
-    if(!name || !email){ alert('Preencha seu nome e e-mail para garantir sua vaga!'); return; }
+    const phone = document.getElementById('wl-phone').value.trim();
+    const city  = document.getElementById('wl-city').value.trim();
+    const idea  = document.getElementById('wl-idea').value.trim();
+ 
+    if(!name || !email){ alert('Preencha pelo menos seu nome e e-mail para garantir sua vaga!'); return; }
     if(!email.includes('@')){ alert('Digite um e-mail válido.'); return; }
  
     const btn = document.querySelector('.waitlist-btn');
@@ -520,25 +539,26 @@
     btn.textContent = 'Enviando...';
  
     try {
-      // Envia para Make → Google Sheets
       if(MAKE_WEBHOOK_URL && MAKE_WEBHOOK_URL !== 'COLE_SUA_URL_DO_MAKE_AQUI') {
         await fetch(MAKE_WEBHOOK_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            nome: name,
-            email: email,
-            data: new Date().toLocaleString('pt-BR'),
+            nome:   name,
+            email:  email,
+            celular: phone,
+            cidade: city,
+            ideia:  idea,
+            data:   new Date().toLocaleString('pt-BR'),
             origem: 'landing-page-mvplab'
           })
         });
       }
     } catch(e) {
-      console.warn('Webhook não configurado ainda:', e);
+      console.warn('Webhook erro:', e);
     }
  
-    // Mostra mensagem de sucesso independente do webhook
-    document.querySelector('.waitlist-form').style.display='none';
+    document.querySelector('.waitlist-form-grid').style.display='none';
     document.querySelector('.waitlist-note').style.display='none';
     document.querySelector('.waitlist-counter').style.display='none';
     document.getElementById('wl-success').style.display='block';
