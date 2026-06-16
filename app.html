@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0a0a0f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MVPLab">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="/manifest.json">
+<title>MVPLab App</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{
+  --bg:#0a0a0f;--card:#13131a;--card2:#1a1a28;--border:#1e1e2e;
+  --purple:#7c3aed;--purple2:#a855f7;--blue:#3b82f6;
+  --green:#10b981;--orange:#f59e0b;--red:#ef4444;
+  --text:#f1f5f9;--muted:#94a3b8;--muted2:#64748b;
+}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;}
+#app{height:100%;display:flex;flex-direction:column;overflow:hidden;}
+
+/* ── PAGES ── */
+.page{display:none;flex-direction:column;height:100%;overflow:hidden;}
+.page.active{display:flex;}
+.page-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.page-scroll::-webkit-scrollbar{display:none;}
+
+/* ── TOPBAR ── */
+.topbar{padding:16px 20px 12px;display:flex;align-items:center;gap:12px;
+  background:rgba(10,10,15,.95);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);flex-shrink:0;position:relative;z-index:10;}
+.topbar-logo{font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,#7c3aed,#3b82f6);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.topbar-title{font-size:1rem;font-weight:700;flex:1;}
+.topbar-back{width:36px;height:36px;border-radius:50%;background:var(--card);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;flex-shrink:0;}
+.topbar-action{background:none;border:none;color:var(--muted);font-size:.85rem;cursor:pointer;padding:6px;font-family:inherit;}
+
+/* ── BOTTOM NAV (manager) ── */
+.bottom-nav{display:flex;border-top:1px solid var(--border);background:rgba(10,10,15,.98);
+  backdrop-filter:blur(20px);flex-shrink:0;}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;
+  padding:10px 0 12px;cursor:pointer;transition:.2s;border:none;background:none;color:var(--muted);}
+.nav-item.active{color:var(--purple2);}
+.nav-item span{font-size:1.3rem;}
+.nav-item p{font-size:.68rem;font-weight:500;}
+
+/* ── LOGIN ── */
+.login-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;}
+.login-logo{font-size:2rem;font-weight:900;background:linear-gradient(135deg,#7c3aed,#3b82f6);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;}
+.login-sub{color:var(--muted);font-size:.9rem;margin-bottom:40px;text-align:center;}
+.role-tabs{display:flex;gap:0;background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:4px;margin-bottom:28px;width:100%;max-width:360px;}
+.role-tab{flex:1;padding:10px;border:none;border-radius:9px;font-family:inherit;
+  font-size:.88rem;font-weight:600;cursor:pointer;transition:.2s;background:none;color:var(--muted);}
+.role-tab.active{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;}
+.login-form{width:100%;max-width:360px;display:flex;flex-direction:column;gap:14px;}
+.input-wrap{position:relative;}
+.input-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:1rem;pointer-events:none;}
+.field-input{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);
+  color:var(--text);padding:14px 14px 14px 42px;border-radius:10px;font-size:.95rem;
+  font-family:'Inter',sans-serif;outline:none;transition:.2s;}
+.field-input:focus{border-color:var(--purple);}
+.field-input::placeholder{color:var(--muted);}
+.field-input.no-icon{padding-left:14px;}
+.btn-full{width:100%;background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;
+  border:none;padding:15px;border-radius:10px;font-weight:700;font-size:1rem;
+  cursor:pointer;transition:.2s;font-family:inherit;}
+.btn-full:hover{transform:translateY(-1px);box-shadow:0 8px 30px rgba(124,58,237,.35);}
+.btn-full:active{transform:translateY(0);}
+.btn-full.green{background:linear-gradient(135deg,var(--green),#059669);}
+.btn-full.outline{background:transparent;border:1px solid var(--border);color:var(--text);}
+.login-hint{font-size:.8rem;color:var(--muted);text-align:center;margin-top:8px;line-height:1.5;}
+.error-msg{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);
+  color:#fca5a5;padding:12px 16px;border-radius:8px;font-size:.85rem;text-align:center;}
+
+/* ── CARDS ── */
+.section-pad{padding:20px;}
+.section-title{font-size:.75rem;font-weight:700;color:var(--muted2);text-transform:uppercase;
+  letter-spacing:1.5px;margin-bottom:12px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:12px;cursor:pointer;transition:.2s;}
+.card:hover{border-color:rgba(124,58,237,.4);}
+.card:active{transform:scale(.98);}
+.card-row{display:flex;align-items:center;gap:14px;}
+.card-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;
+  justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.card-icon.purple{background:rgba(124,58,237,.15);}
+.card-icon.blue{background:rgba(59,130,246,.15);}
+.card-icon.green{background:rgba(16,185,129,.15);}
+.card-icon.orange{background:rgba(245,158,11,.15);}
+.card-info{flex:1;min-width:0;}
+.card-name{font-size:.95rem;font-weight:700;margin-bottom:3px;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;}
+.card-meta{font-size:.8rem;color:var(--muted);}
+.card-arrow{color:var(--muted);font-size:1.1rem;}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;
+  font-size:.72rem;font-weight:700;}
+.badge.novo{background:rgba(59,130,246,.15);color:#93c5fd;}
+.badge.briefing{background:rgba(245,158,11,.15);color:#fcd34d;}
+.badge.dev{background:rgba(124,58,237,.15);color:#c4b5fd;}
+.badge.revisao{background:rgba(239,68,68,.15);color:#fca5a5;}
+.badge.entregue{background:rgba(16,185,129,.15);color:#6ee7b7;}
+.badge.pausado{background:rgba(100,116,139,.15);color:#94a3b8;}
+
+/* ── STATS ROW ── */
+.stats-row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px;}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:16px;text-align:center;}
+.stat-num{font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#a855f7,#3b82f6);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;}
+.stat-lbl{font-size:.75rem;color:var(--muted);margin-top:6px;}
+
+/* ── FORM ── */
+.form-field{margin-bottom:18px;}
+.form-label{font-size:.85rem;font-weight:600;color:var(--text);margin-bottom:8px;display:block;}
+.form-label small{font-weight:400;color:var(--muted);margin-left:4px;}
+.form-input{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);
+  color:var(--text);padding:13px 16px;border-radius:10px;font-size:.95rem;
+  font-family:'Inter',sans-serif;outline:none;transition:.2s;}
+.form-input:focus{border-color:var(--purple);}
+.form-input::placeholder{color:var(--muted);}
+.form-textarea{resize:vertical;min-height:90px;}
+.form-select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;}
+
+/* ── PROGRESS ── */
+.progress-wrap{height:3px;background:var(--border);flex-shrink:0;}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--purple),var(--blue));transition:width .4s;}
+
+/* ── STEP HEADER ── */
+.step-hdr{padding:24px 20px 0;}
+.step-tag{font-size:.72rem;font-weight:700;color:#a78bfa;text-transform:uppercase;
+  letter-spacing:2px;margin-bottom:8px;}
+.step-h{font-size:1.4rem;font-weight:800;line-height:1.2;margin-bottom:8px;}
+.step-h span{background:linear-gradient(135deg,#a855f7,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.step-desc{font-size:.88rem;color:var(--muted);line-height:1.6;margin-bottom:24px;}
+
+/* ── CHECK / RADIO ── */
+.check-group{display:flex;flex-direction:column;gap:8px;}
+.check-item{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.03);
+  border:1px solid var(--border);border-radius:10px;padding:13px 14px;cursor:pointer;transition:.2s;}
+.check-item.on{border-color:rgba(124,58,237,.5);background:rgba(124,58,237,.08);}
+.check-box{width:20px;height:20px;border-radius:6px;border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.2s;}
+.check-item.on .check-box{background:var(--purple);border-color:var(--purple);}
+.check-item.on .check-box::after{content:'✓';color:#fff;font-size:.75rem;font-weight:700;}
+.check-lbl{font-size:.88rem;flex:1;}
+.radio-group{display:flex;flex-direction:column;gap:8px;}
+.radio-item{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.03);
+  border:1px solid var(--border);border-radius:10px;padding:13px 14px;cursor:pointer;transition:.2s;}
+.radio-item.on{border-color:rgba(124,58,237,.5);background:rgba(124,58,237,.08);}
+.radio-dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;transition:.2s;}
+.radio-item.on .radio-dot{border-color:var(--purple);}
+.radio-item.on .radio-dot::after{content:'';width:10px;height:10px;border-radius:50%;background:var(--purple);}
+.radio-lbl{font-size:.88rem;flex:1;}
+
+/* ── STEP NAV ── */
+.step-nav{padding:16px 20px;display:flex;gap:12px;border-top:1px solid var(--border);
+  background:var(--bg);flex-shrink:0;}
+.btn-back-step{background:var(--card);border:1px solid var(--border);color:var(--muted);
+  padding:13px 20px;border-radius:10px;font-weight:600;font-size:.9rem;cursor:pointer;
+  transition:.2s;font-family:inherit;}
+.btn-next-step{flex:1;background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;
+  border:none;padding:13px;border-radius:10px;font-weight:700;font-size:.9rem;
+  cursor:pointer;transition:.2s;font-family:inherit;}
+.btn-finish-step{flex:1;background:linear-gradient(135deg,var(--green),#059669);color:#fff;
+  border:none;padding:13px;border-radius:10px;font-weight:700;font-size:.9rem;
+  cursor:pointer;transition:.2s;font-family:inherit;}
+
+/* ── CODE DISPLAY ── */
+.code-display{background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(59,130,246,.15));
+  border:2px dashed rgba(124,58,237,.4);border-radius:16px;padding:24px;text-align:center;margin:20px 0;}
+.code-val{font-size:2rem;font-weight:900;letter-spacing:4px;
+  background:linear-gradient(135deg,#a855f7,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.code-hint{font-size:.8rem;color:var(--muted);margin-top:8px;}
+.btn-copy{display:inline-flex;align-items:center;gap:8px;background:var(--card);
+  border:1px solid var(--border);color:var(--text);padding:10px 20px;border-radius:8px;
+  font-size:.85rem;font-weight:600;cursor:pointer;transition:.2s;margin-top:12px;font-family:inherit;}
+.btn-copy:active{background:rgba(124,58,237,.2);}
+
+/* ── SUCCESS ── */
+.success-wrap{flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:32px 24px;text-align:center;}
+.success-icon{font-size:4rem;margin-bottom:20px;animation:pop .5s ease;}
+@keyframes pop{0%{transform:scale(.5);opacity:0;}80%{transform:scale(1.1);}100%{transform:scale(1);opacity:1;}}
+.success-title{font-size:1.5rem;font-weight:800;margin-bottom:10px;}
+.success-sub{color:var(--muted);font-size:.9rem;line-height:1.7;max-width:320px;margin:0 auto 32px;}
+
+/* ── DETAIL ── */
+.detail-section{padding:20px;border-bottom:1px solid var(--border);}
+.detail-section:last-child{border-bottom:none;}
+.detail-sec-title{font-size:.72rem;font-weight:700;color:#a78bfa;text-transform:uppercase;
+  letter-spacing:1.5px;margin-bottom:14px;}
+.detail-row{margin-bottom:12px;}
+.detail-label{font-size:.75rem;color:var(--muted);margin-bottom:3px;}
+.detail-value{font-size:.9rem;color:var(--text);line-height:1.5;}
+.detail-value.empty{color:var(--muted2);font-style:italic;}
+
+/* ── HINT BOX ── */
+.hint-box{background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);
+  border-radius:10px;padding:14px 16px;font-size:.82rem;color:#93c5fd;line-height:1.6;margin-bottom:16px;}
+
+/* ── EMPTY STATE ── */
+.empty-state{display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:48px 24px;text-align:center;}
+.empty-icon{font-size:3rem;margin-bottom:16px;opacity:.4;}
+.empty-title{font-size:1rem;font-weight:600;color:var(--muted);margin-bottom:6px;}
+.empty-sub{font-size:.85rem;color:var(--muted2);}
+
+/* ── FAB ── */
+.fab{position:fixed;bottom:80px;right:20px;width:56px;height:56px;border-radius:50%;
+  background:linear-gradient(135deg,var(--purple),var(--blue));border:none;
+  color:#fff;font-size:1.5rem;cursor:pointer;box-shadow:0 4px 20px rgba(124,58,237,.4);
+  display:flex;align-items:center;justify-content:center;transition:.2s;z-index:50;}
+.fab:active{transform:scale(.92);}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:var(--border);margin:8px 0;}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--card);border:1px solid var(--border);border-radius:10px;
+  padding:12px 20px;font-size:.85rem;font-weight:500;opacity:0;transition:.3s;
+  pointer-events:none;z-index:999;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+@media(max-width:400px){.code-val{font-size:1.6rem;letter-spacing:2px;}}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- ══════════════════════════════════════════
+     LOGIN
+══════════════════════════════════════════ -->
+<div class="page active" id="pg-login">
+  <div class="login-wrap">
+    <div class="login-logo">MVPLab ⚡</div>
+    <p class="login-sub">Portal de Projetos</p>
+
+    <div class="role-tabs">
+      <button class="role-tab active" id="tab-manager" onclick="switchRole('manager')">🔐 Gestor</button>
+      <button class="role-tab" id="tab-client" onclick="switchRole('client')">🎯 Cliente</button>
+    </div>
+
+    <!-- Manager Login -->
+    <div class="login-form" id="form-manager">
+      <div class="input-wrap">
+        <span class="input-icon">✉️</span>
+        <input class="field-input" type="email" id="mgr-email" placeholder="E-mail do gestor" autocomplete="email">
+      </div>
+      <div class="input-wrap">
+        <span class="input-icon">🔒</span>
+        <input class="field-input" type="password" id="mgr-pass" placeholder="Senha" autocomplete="current-password" onkeydown="if(event.key==='Enter')loginManager()">
+      </div>
+      <div id="mgr-error" class="error-msg" style="display:none"></div>
+      <button class="btn-full" onclick="loginManager()">Entrar como Gestor</button>
+    </div>
+
+    <!-- Client Login -->
+    <div class="login-form" id="form-client" style="display:none">
+      <div class="hint-box">💡 Você recebeu um <strong>código de acesso</strong> da equipe MVPLab após confirmar seu pagamento. Digite-o abaixo.</div>
+      <input class="field-input no-icon" type="text" id="client-code" placeholder="Ex: MVP26-X7K2" style="font-size:1.1rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;text-align:center" maxlength="10" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')loginClient()">
+      <div id="client-error" class="error-msg" style="display:none"></div>
+      <button class="btn-full" onclick="loginClient()">Acessar Meu Projeto →</button>
+      <p class="login-hint">Não recebeu seu código? Fale com a equipe via WhatsApp.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     MANAGER — HOME
+══════════════════════════════════════════ -->
+<div class="page" id="pg-manager-home">
+  <div class="topbar">
+    <span class="topbar-logo">MVPLab ⚡</span>
+    <button class="topbar-action" onclick="logout()">Sair</button>
+  </div>
+  <div class="page-scroll">
+    <div class="section-pad">
+      <div id="mgr-welcome" style="margin-bottom:20px;">
+        <p style="font-size:.85rem;color:var(--muted)">Bem-vindo de volta,</p>
+        <p style="font-size:1.2rem;font-weight:800;">Walter 👋</p>
+      </div>
+      <div class="stats-row" id="stats-row"></div>
+      <div class="section-title">Projetos Recentes</div>
+      <div id="recent-projects"></div>
+    </div>
+  </div>
+  <div class="bottom-nav">
+    <button class="nav-item active" onclick="showManagerTab('home')"><span>🏠</span><p>Início</p></button>
+    <button class="nav-item" onclick="showManagerTab('projects')"><span>📋</span><p>Projetos</p></button>
+    <button class="nav-item" onclick="showManagerTab('new')"><span>➕</span><p>Novo</p></button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     MANAGER — PROJECTS LIST
+══════════════════════════════════════════ -->
+<div class="page" id="pg-manager-projects">
+  <div class="topbar">
+    <span class="topbar-logo">MVPLab ⚡</span>
+    <button class="topbar-action" onclick="logout()">Sair</button>
+  </div>
+  <div class="page-scroll">
+    <div class="section-pad">
+      <div class="section-title">Todos os Projetos</div>
+      <div id="all-projects"></div>
+    </div>
+  </div>
+  <div class="bottom-nav">
+    <button class="nav-item" onclick="showManagerTab('home')"><span>🏠</span><p>Início</p></button>
+    <button class="nav-item active" onclick="showManagerTab('projects')"><span>📋</span><p>Projetos</p></button>
+    <button class="nav-item" onclick="showManagerTab('new')"><span>➕</span><p>Novo</p></button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     MANAGER — NEW CLIENT
+══════════════════════════════════════════ -->
+<div class="page" id="pg-manager-new">
+  <div class="topbar">
+    <span class="topbar-logo">MVPLab ⚡</span>
+    <button class="topbar-action" onclick="logout()">Sair</button>
+  </div>
+  <div class="page-scroll">
+    <div class="section-pad">
+      <div class="section-title">Novo Projeto</div>
+
+      <div id="new-client-form">
+        <div class="form-field">
+          <label class="form-label">Nome do Cliente *</label>
+          <input class="form-input" id="nc-name" type="text" placeholder="Nome completo">
+        </div>
+        <div class="form-field">
+          <label class="form-label">E-mail</label>
+          <input class="form-input" id="nc-email" type="email" placeholder="email@cliente.com">
+        </div>
+        <div class="form-field">
+          <label class="form-label">WhatsApp</label>
+          <input class="form-input" id="nc-phone" type="tel" placeholder="(12) 99999-9999">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Plano Contratado *</label>
+          <select class="form-input form-select" id="nc-plan">
+            <option value="">Selecione o plano</option>
+            <option value="Starter">Starter — R$ 1.497</option>
+            <option value="Pro">Pro — R$ 2.997</option>
+            <option value="Scale">Scale — R$ 5.997</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Observações Internas <small>(opcional)</small></label>
+          <textarea class="form-input form-textarea" id="nc-notes" placeholder="Notas sobre o projeto, forma de pagamento, etc..."></textarea>
+        </div>
+        <div id="nc-error" class="error-msg" style="display:none;margin-bottom:12px;"></div>
+        <button class="btn-full" onclick="generateCode()">⚡ Gerar Código de Acesso</button>
+      </div>
+
+      <div id="code-result" style="display:none">
+        <div class="code-display">
+          <p style="font-size:.8rem;color:var(--muted);margin-bottom:8px;">CÓDIGO DO CLIENTE</p>
+          <div class="code-val" id="generated-code">MVP26-XXXX</div>
+          <p class="code-hint">Envie este código para o cliente para ele acessar o briefing</p>
+          <button class="btn-copy" onclick="copyCode()">📋 Copiar Código</button>
+        </div>
+        <button class="btn-full" id="btn-wpp-code" style="background:#25d366;margin-bottom:12px;" onclick="sendViaWhatsApp()">
+          <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;margin-right:8px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Enviar via WhatsApp
+        </button>
+        <button class="btn-full outline" onclick="resetNewClient()">+ Criar Outro Projeto</button>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-nav">
+    <button class="nav-item" onclick="showManagerTab('home')"><span>🏠</span><p>Início</p></button>
+    <button class="nav-item" onclick="showManagerTab('projects')"><span>📋</span><p>Projetos</p></button>
+    <button class="nav-item active" onclick="showManagerTab('new')"><span>➕</span><p>Novo</p></button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     MANAGER — PROJECT DETAIL
+══════════════════════════════════════════ -->
+<div class="page" id="pg-manager-detail">
+  <div class="topbar">
+    <button class="topbar-back" onclick="showManagerTab('projects')">←</button>
+    <span class="topbar-title" id="detail-title">Projeto</span>
+  </div>
+  <div class="page-scroll" id="detail-content"></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     CLIENT — CODE ENTRY (redundant, handled in login)
+══════════════════════════════════════════ -->
+
+<!-- ══════════════════════════════════════════
+     CLIENT — BRIEFING (5 steps)
+══════════════════════════════════════════ -->
+<div class="page" id="pg-client-briefing">
+  <div class="topbar">
+    <span class="topbar-logo">MVPLab ⚡</span>
+    <span id="step-counter" style="font-size:.82rem;color:var(--muted)">Etapa 1 de 5</span>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-bar" id="brief-progress" style="width:20%"></div>
+  </div>
+  <div class="page-scroll" id="brief-content"></div>
+  <div class="step-nav" id="brief-nav"></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     CLIENT — SUCCESS
+══════════════════════════════════════════ -->
+<div class="page" id="pg-client-success">
+  <div class="success-wrap">
+    <div class="success-icon">🚀</div>
+    <h2 class="success-title">Briefing Enviado!</h2>
+    <p class="success-sub">Sua equipe MVPLab vai analisar as informações e entrar em contato em até <strong style="color:var(--text)">24 horas úteis</strong> para iniciar seu projeto.</p>
+    <button class="btn-full" style="max-width:320px;margin-bottom:12px" onclick="downloadBriefingTxt()">📄 Baixar Resumo</button>
+    <a id="wpp-success" href="#" class="btn-full green" style="max-width:320px;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:10px" target="_blank">
+      <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Confirmar no WhatsApp
+    </a>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════
+const CONFIG = {
+  manager: {
+    email: 'walter@mvplab.app.br',
+    password: 'MVPLab@2026'
+  },
+  webhooks: {
+    briefing: 'https://hook.us2.make.com/eu1w4tk1e7b6clc4b5101ly5yszkky1u',
+    newProject: 'https://hook.us2.make.com/eu1w4tk1e7b6clc4b5101ly5yszkky1u'
+  },
+  whatsapp: '5512997044683'
+};
+
+// ═══════════════════════════════════
+// STATE
+// ═══════════════════════════════════
+let state = {
+  role: null,
+  clientCode: null,
+  clientProject: null,
+  briefStep: 1,
+  briefData: {},
+  lastGeneratedCode: null,
+  lastGeneratedClient: null
+};
+
+// ═══════════════════════════════════
+// STORAGE
+// ═══════════════════════════════════
+function getProjects() {
+  try { return JSON.parse(localStorage.getItem('mvplab_projects') || '[]'); } catch { return []; }
+}
+function saveProjects(p) { localStorage.setItem('mvplab_projects', JSON.stringify(p)); }
+function getProject(code) { return getProjects().find(p => p.code === code); }
+function upsertProject(proj) {
+  const all = getProjects();
+  const idx = all.findIndex(p => p.code === proj.code);
+  if(idx >= 0) all[idx] = proj; else all.unshift(proj);
+  saveProjects(all);
+}
+
+// ═══════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function showManagerTab(tab) {
+  if(tab === 'home') { renderManagerHome(); showPage('pg-manager-home'); }
+  else if(tab === 'projects') { renderProjectsList(); showPage('pg-manager-projects'); }
+  else if(tab === 'new') { resetNewClient(); showPage('pg-manager-new'); }
+}
+
+// ═══════════════════════════════════
+// AUTH
+// ═══════════════════════════════════
+function switchRole(role) {
+  document.getElementById('tab-manager').classList.toggle('active', role === 'manager');
+  document.getElementById('tab-client').classList.toggle('active', role === 'client');
+  document.getElementById('form-manager').style.display = role === 'manager' ? 'flex' : 'none';
+  document.getElementById('form-client').style.display = role === 'client' ? 'flex' : 'none';
+  document.getElementById('mgr-error').style.display = 'none';
+  document.getElementById('client-error').style.display = 'none';
+}
+
+function loginManager() {
+  const email = document.getElementById('mgr-email').value.trim().toLowerCase();
+  const pass  = document.getElementById('mgr-pass').value;
+  const err   = document.getElementById('mgr-error');
+  if(email !== CONFIG.manager.email.toLowerCase() || pass !== CONFIG.manager.password) {
+    err.textContent = 'E-mail ou senha incorretos.';
+    err.style.display = 'block';
+    return;
+  }
+  err.style.display = 'none';
+  state.role = 'manager';
+  showManagerTab('home');
+}
+
+function loginClient() {
+  const code = document.getElementById('client-code').value.trim().toUpperCase();
+  const err  = document.getElementById('client-error');
+  if(!code || code.length < 6) {
+    err.textContent = 'Digite seu código de acesso.';
+    err.style.display = 'block';
+    return;
+  }
+  // Check if code exists locally OR accept any MVP- prefixed code
+  const proj = getProject(code);
+  if(!proj && !code.startsWith('MVP')) {
+    err.textContent = 'Código inválido. Verifique com a equipe MVPLab.';
+    err.style.display = 'block';
+    return;
+  }
+  err.style.display = 'none';
+  state.role = 'client';
+  state.clientCode = code;
+  state.clientProject = proj;
+  startBriefing();
+}
+
+function logout() {
+  state = { role:null, clientCode:null, clientProject:null, briefStep:1, briefData:{}, lastGeneratedCode:null, lastGeneratedClient:null };
+  document.getElementById('mgr-email').value = '';
+  document.getElementById('mgr-pass').value = '';
+  document.getElementById('client-code').value = '';
+  switchRole('manager');
+  showPage('pg-login');
+}
+
+// ═══════════════════════════════════
+// MANAGER — HOME
+// ═══════════════════════════════════
+function renderManagerHome() {
+  const projects = getProjects();
+  const counts = {
+    total: projects.length,
+    novo: projects.filter(p => !p.briefing).length,
+    dev: projects.filter(p => p.status === 'Em Desenvolvimento').length,
+    entregue: projects.filter(p => p.status === 'Entregue').length
+  };
+  document.getElementById('stats-row').innerHTML = `
+    <div class="stat-card"><div class="stat-num">${counts.total}</div><div class="stat-lbl">Total Projetos</div></div>
+    <div class="stat-card"><div class="stat-num">${counts.novo}</div><div class="stat-lbl">Aguardando Briefing</div></div>
+    <div class="stat-card"><div class="stat-num">${counts.dev}</div><div class="stat-lbl">Em Desenvolvimento</div></div>
+    <div class="stat-card"><div class="stat-num">${counts.entregue}</div><div class="stat-lbl">Entregues</div></div>
+  `;
+  const recent = projects.slice(0, 5);
+  document.getElementById('recent-projects').innerHTML = recent.length
+    ? recent.map(p => projectCard(p)).join('')
+    : '<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-title">Nenhum projeto ainda</div><div class="empty-sub">Crie o primeiro projeto na aba "Novo"</div></div>';
+
+  document.querySelectorAll('#pg-manager-home .nav-item').forEach((b,i)=>{b.classList.toggle('active',i===0);});
+}
+
+function renderProjectsList() {
+  const projects = getProjects();
+  document.getElementById('all-projects').innerHTML = projects.length
+    ? projects.map(p => projectCard(p)).join('')
+    : '<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-title">Nenhum projeto ainda</div><div class="empty-sub">Crie o primeiro projeto na aba "Novo"</div></div>';
+  document.querySelectorAll('#pg-manager-projects .nav-item').forEach((b,i)=>{b.classList.toggle('active',i===1);});
+}
+
+function projectCard(p) {
+  const statusClass = {
+    'Novo':'novo','Em Briefing':'briefing','Em Desenvolvimento':'dev',
+    'Revisão':'revisao','Entregue':'entregue','Pausado':'pausado'
+  }[p.status] || 'novo';
+  const hasBriefing = p.briefing ? '✅ Briefing recebido' : '⏳ Aguardando briefing';
+  return `<div class="card" onclick="showProjectDetail('${p.code}')">
+    <div class="card-row">
+      <div class="card-icon purple">🚀</div>
+      <div class="card-info">
+        <div class="card-name">${p.clientName}</div>
+        <div class="card-meta">${p.code} · ${p.plan} · ${hasBriefing}</div>
+      </div>
+      <span class="badge ${statusClass}">${p.status}</span>
+    </div>
+  </div>`;
+}
+
+function showProjectDetail(code) {
+  const p = getProject(code);
+  if(!p) return;
+  document.getElementById('detail-title').textContent = p.clientName;
+  const b = p.briefing || {};
+  const statusOptions = ['Novo','Em Briefing','Em Desenvolvimento','Revisão','Entregue','Pausado']
+    .map(s => `<option value="${s}" ${p.status===s?'selected':''}>${s}</option>`).join('');
+
+  document.getElementById('detail-content').innerHTML = `
+    <div class="detail-section">
+      <div class="detail-sec-title">📋 Projeto</div>
+      <div class="detail-row"><div class="detail-label">Código</div><div class="detail-value">${p.code}</div></div>
+      <div class="detail-row"><div class="detail-label">Cliente</div><div class="detail-value">${p.clientName}</div></div>
+      <div class="detail-row"><div class="detail-label">E-mail</div><div class="detail-value">${p.email||'—'}</div></div>
+      <div class="detail-row"><div class="detail-label">WhatsApp</div><div class="detail-value">${p.phone||'—'}</div></div>
+      <div class="detail-row"><div class="detail-label">Plano</div><div class="detail-value">${p.plan}</div></div>
+      <div class="detail-row"><div class="detail-label">Criado em</div><div class="detail-value">${p.createdAt}</div></div>
+      <div class="detail-row">
+        <div class="detail-label">Status</div>
+        <select class="form-input form-select" style="margin-top:4px" onchange="updateStatus('${p.code}',this.value)">${statusOptions}</select>
+      </div>
+      ${p.notes ? `<div class="detail-row"><div class="detail-label">Notas</div><div class="detail-value">${p.notes}</div></div>` : ''}
+    </div>
+    ${p.briefing ? `
+    <div class="detail-section">
+      <div class="detail-sec-title">🚀 Negócio</div>
+      <div class="detail-row"><div class="detail-label">Empresa/Projeto</div><div class="detail-value">${b.empresa||'—'}</div></div>
+      <div class="detail-row"><div class="detail-label">Produto</div><div class="detail-value">${b.produto||'—'}</div></div>
+      <div class="detail-row"><div class="detail-label">Diferencial</div><div class="detail-value">${b.diferencial||'—'}</div></div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-sec-title">🎯 Objetivo</div>
+      <div class="detail-row"><div class="detail-label">Objetivos</div><div class="detail-value">${b.objetivo||'—'}</div></div>
+      <div class="detail-row"><div class="detail-label">Ação Principal</div><div class="detail-value">${b.acao||'—'}</div></div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-sec-title">⚙️ Dados & Tech</div>
+      <div class="detail-row"><div class="detail-label">Dados</div><div class="detail-value">${b.dados||'—'}</div></div>
+      <div class="detail-row"><div class="detail-label">CRM</div><div class="detail-value">${b.crm||'—'}</div></div>
+      <div class="detail-row"><div class="detail-label">Login</div><div class="detail-value">${b.login||'—'}</div></div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-sec-title">🎬 Conteúdo</div>
+      <div class="detail-row"><div class="detail-label">Essencial</div><div class="detail-value">${b.conteudo||'—'}</div></div>
+      <div class="detail-row"><div class="detail-label">Vídeos</div><div class="detail-value">${b.video||'—'}</div></div>
+      <div class="detail-row"><div class="detail-label">Depoimentos</div><div class="detail-value">${b.depoimentos||'—'}</div></div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-sec-title">🎨 Visual</div>
+      <div class="detail-row"><div class="detail-label">Referências</div><div class="detail-value" style="white-space:pre-line">${b.referencias||'—'}</div></div>
+      <div class="detail-row"><div class="detail-label">Logo</div><div class="detail-value">${b.logo||'—'}</div></div>
+      <div class="detail-row"><div class="detail-label">Cores</div><div class="detail-value">${b.cores||'—'}</div></div>
+      <div class="detail-row"><div class="detail-label">Obs.</div><div class="detail-value">${b.obs||'—'}</div></div>
+    </div>` : `
+    <div class="detail-section">
+      <div class="empty-state">
+        <div class="empty-icon">📝</div>
+        <div class="empty-title">Briefing não enviado</div>
+        <div class="empty-sub">O cliente ainda não preencheu o formulário.</div>
+      </div>
+    </div>`}
+    <div style="height:24px"></div>
+  `;
+  showPage('pg-manager-detail');
+}
+
+function updateStatus(code, newStatus) {
+  const all = getProjects();
+  const p = all.find(x => x.code === code);
+  if(p) { p.status = newStatus; saveProjects(all); }
+  showToast('Status atualizado!');
+}
+
+// ═══════════════════════════════════
+// GENERATE CODE
+// ═══════════════════════════════════
+function generateCode() {
+  const name  = document.getElementById('nc-name').value.trim();
+  const email = document.getElementById('nc-email').value.trim();
+  const phone = document.getElementById('nc-phone').value.trim();
+  const plan  = document.getElementById('nc-plan').value;
+  const notes = document.getElementById('nc-notes').value.trim();
+  const err   = document.getElementById('nc-error');
+
+  if(!name || !plan) {
+    err.textContent = 'Preencha o nome do cliente e o plano.';
+    err.style.display = 'block';
+    return;
+  }
+  err.style.display = 'none';
+
+  const year = new Date().getFullYear().toString().slice(-2);
+  const rand = Math.random().toString(36).substring(2,6).toUpperCase();
+  const code = `MVP${year}-${rand}`;
+
+  const project = {
+    code, clientName: name, email, phone, plan, notes,
+    status: 'Novo',
+    createdAt: new Date().toLocaleString('pt-BR'),
+    briefing: null
+  };
+  upsertProject(project);
+
+  state.lastGeneratedCode = code;
+  state.lastGeneratedClient = project;
+
+  document.getElementById('generated-code').textContent = code;
+  document.getElementById('new-client-form').style.display = 'none';
+  document.getElementById('code-result').style.display = 'block';
+
+  // Notificar Make
+  fetch(CONFIG.webhooks.newProject, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ tipo:'novo_projeto', codigo:code, cliente:name, email, telefone:phone, plano:plan, data:project.createdAt })
+  }).catch(()=>{});
+}
+
+function copyCode() {
+  const code = document.getElementById('generated-code').textContent;
+  navigator.clipboard.writeText(code).then(()=>showToast('Código copiado!')).catch(()=>{
+    const el = document.createElement('textarea');
+    el.value = code; document.body.appendChild(el); el.select();
+    document.execCommand('copy'); document.body.removeChild(el);
+    showToast('Código copiado!');
+  });
+}
+
+function sendViaWhatsApp() {
+  const p = state.lastGeneratedClient;
+  if(!p) return;
+  const planPrices = {Starter:'R$1.497',Pro:'R$2.997',Scale:'R$5.997'};
+  const msg = encodeURIComponent(
+    `Olá ${p.clientName}! 👋\n\n` +
+    `Seu pagamento foi confirmado e seu projeto *MVPLab* foi criado com sucesso!\n\n` +
+    `📋 *Plano:* ${p.plan} (${planPrices[p.plan]||''})\n` +
+    `🔑 *Código de Acesso:* *${p.code}*\n\n` +
+    `Para preencher o briefing do seu projeto, acesse:\n` +
+    `👉 https://www.mvplab.app.br/app\n\n` +
+    `Na tela de login, clique em *"Cliente"* e digite seu código.\n\n` +
+    `Qualquer dúvida, é só falar! 🚀`
+  );
+  const phone = p.phone ? p.phone.replace(/\D/g,'') : CONFIG.whatsapp;
+  const fullPhone = phone.startsWith('55') ? phone : `55${phone}`;
+  window.open(`https://wa.me/${fullPhone}?text=${msg}`, '_blank');
+}
+
+function resetNewClient() {
+  document.getElementById('nc-name').value = '';
+  document.getElementById('nc-email').value = '';
+  document.getElementById('nc-phone').value = '';
+  document.getElementById('nc-plan').value = '';
+  document.getElementById('nc-notes').value = '';
+  document.getElementById('nc-error').style.display = 'none';
+  document.getElementById('new-client-form').style.display = 'block';
+  document.getElementById('code-result').style.display = 'none';
+  document.querySelectorAll('#pg-manager-new .nav-item').forEach((b,i)=>{b.classList.toggle('active',i===2);});
+}
+
+// ═══════════════════════════════════
+// CLIENT — BRIEFING
+// ═══════════════════════════════════
+const STEPS = [
+  {
+    tag:'🚀 Seção 1 de 5', title:'O <span>Negócio</span> e o Produto',
+    desc:'Vamos entender a essência do que você quer construir.',
+    fields: () => `
+      <div class="form-field">
+        <label class="form-label">Nome da empresa ou projeto *</label>
+        <input class="form-input" id="f-empresa" placeholder="Ex: BarberApp, Clínica Zen...">
+      </div>
+      <div class="form-field">
+        <label class="form-label">O que o produto/serviço faz de principal? *</label>
+        <textarea class="form-input form-textarea" id="f-produto" placeholder="Descreva brevemente o que você quer criar..."></textarea>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Qual o grande diferencial? <small>(opcional)</small></label>
+        <textarea class="form-input form-textarea" id="f-diferencial" placeholder="O que te diferencia dos concorrentes?"></textarea>
+      </div>`
+  },
+  {
+    tag:'🎯 Seção 2 de 5', title:'O <span>Objetivo</span> Principal',
+    desc:'O que seu site ou app precisa gerar para seu negócio?',
+    fields: () => `
+      <div class="form-field">
+        <label class="form-label">O que o site/app precisa gerar? *</label>
+        <div class="check-group" id="cg-objetivo">
+          ${['💰 Vendas diretas','📋 Captação de leads','📅 Agendamentos','🏢 Institucional / autoridade','⚙️ Plataforma / SaaS','🛒 Marketplace']
+            .map(o=>`<div class="check-item" onclick="toggleCheck(this,'${o.replace(/'/g,'')}')">`+
+              `<div class="check-box"></div><span class="check-lbl">${o}</span></div>`).join('')}
+        </div>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Ação principal do usuário *</label>
+        <div class="radio-group" id="rg-acao">
+          ${['💬 Clicar no WhatsApp','📝 Preencher formulário','🛍️ Fazer uma compra','🔐 Fazer cadastro/login','📅 Fazer agendamento','✏️ Outro']
+            .map(a=>`<div class="radio-item" onclick="pickRadio('acao',this,'${a.replace(/'/g,'')}')">`+
+              `<div class="radio-dot"></div><span class="radio-lbl">${a}</span></div>`).join('')}
+        </div>
+      </div>
+      <div class="form-field" id="f-acao-outro-wrap" style="display:none">
+        <label class="form-label">Descreva a ação:</label>
+        <input class="form-input" id="f-acao-outro" placeholder="...">
+      </div>`
+  },
+  {
+    tag:'⚙️ Seção 3 de 5', title:'<span>Dados</span> e Integrações',
+    desc:'Quais dados precisam ser coletados e quais sistemas você usa?',
+    fields: () => `
+      <div class="form-field">
+        <label class="form-label">Dados do cliente a capturar</label>
+        <div class="check-group" id="cg-dados">
+          ${['👤 Nome','📧 E-mail','📱 Celular/WhatsApp','🪪 CPF ou CNPJ','📍 Endereço','💳 Dados de pagamento']
+            .map(d=>`<div class="check-item" onclick="toggleCheck(this,'${d.replace(/'/g,'')}')">`+
+              `<div class="check-box"></div><span class="check-lbl">${d}</span></div>`).join('')}
+        </div>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Usa algum CRM ou sistema? <small>(opcional)</small></label>
+        <input class="form-input" id="f-crm" placeholder="Ex: RD Station, HubSpot, Nenhum...">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Usuário precisará de login? *</label>
+        <div class="radio-group" id="rg-login">
+          ${['🔐 Sim, e-mail e senha','🔑 Sim, Google/redes sociais','🌐 Não precisa de login','🤔 Não sei ainda']
+            .map(l=>`<div class="radio-item" onclick="pickRadio('login',this,'${l.replace(/'/g,'')}')">`+
+              `<div class="radio-dot"></div><span class="radio-lbl">${l}</span></div>`).join('')}
+        </div>
+      </div>`
+  },
+  {
+    tag:'🎬 Seção 4 de 5', title:'Conteúdo e <span>Interação</span>',
+    desc:'O que não pode faltar na sua plataforma?',
+    fields: () => `
+      <div class="hint-box">💡 Pense no que um visitante que nunca ouviu falar de você precisaria ver para tomar uma decisão.</div>
+      <div class="form-field">
+        <label class="form-label">Conteúdo essencial da página *</label>
+        <textarea class="form-input form-textarea" style="min-height:110px" id="f-conteudo" placeholder="Ex: Preços, depoimentos, lista de serviços, fotos, localização..."></textarea>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Terá vídeos?</label>
+        <div class="radio-group" id="rg-video">
+          ${['🎥 Sim, já tenho prontos','🎬 Sim, vou produzir','❌ Não por enquanto','🤔 Não sei']
+            .map(v=>`<div class="radio-item" onclick="pickRadio('video',this,'${v.replace(/'/g,'')}')">`+
+              `<div class="radio-dot"></div><span class="radio-lbl">${v}</span></div>`).join('')}
+        </div>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Terá depoimentos/casos de sucesso?</label>
+        <div class="radio-group" id="rg-depo">
+          ${['⭐ Sim, já tenho','📣 Sim, vou coletar','❌ Não']
+            .map(d=>`<div class="radio-item" onclick="pickRadio('depo',this,'${d.replace(/'/g,'')}')">`+
+              `<div class="radio-dot"></div><span class="radio-lbl">${d}</span></div>`).join('')}
+        </div>
+      </div>`
+  },
+  {
+    tag:'🎨 Seção 5 de 5', title:'Visual e <span>Referências</span>',
+    desc:'A identidade visual é o rosto do seu produto.',
+    fields: () => `
+      <div class="form-field">
+        <label class="form-label">Links de referência <small>(1 por linha)</small></label>
+        <textarea class="form-input form-textarea" id="f-refs" placeholder="https://airbnb.com&#10;https://nubank.com.br"></textarea>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Já tem logotipo?</label>
+        <div class="radio-group" id="rg-logo">
+          ${['✅ Sim, tenho logo pronto','🎨 Não, preciso criar']
+            .map(l=>`<div class="radio-item" onclick="pickRadio('logo',this,'${l.replace(/'/g,'')}')">`+
+              `<div class="radio-dot"></div><span class="radio-lbl">${l}</span></div>`).join('')}
+        </div>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Cores principais <small>(opcional)</small></label>
+        <input class="form-input" id="f-cores" placeholder="Ex: Azul escuro e branco, estilo tech moderno">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Observações extras <small>(opcional)</small></label>
+        <textarea class="form-input form-textarea" id="f-obs" placeholder="Qualquer detalhe que não foi coberto acima..."></textarea>
+      </div>`
+  }
+];
+
+let radios = {};
+let checks = {};
+
+function toggleCheck(el, val) {
+  el.classList.toggle('on');
+}
+function pickRadio(name, el, val) {
+  el.closest('.radio-group').querySelectorAll('.radio-item').forEach(r => r.classList.remove('on'));
+  el.classList.add('on');
+  radios[name] = val;
+  if(name === 'acao') {
+    const wrap = document.getElementById('f-acao-outro-wrap');
+    if(wrap) wrap.style.display = val.includes('Outro') ? 'block' : 'none';
+  }
+}
+function getChecked(groupId) {
+  const items = document.querySelectorAll(`#${groupId} .check-item.on .check-lbl`);
+  return Array.from(items).map(i => i.textContent).join(', ') || '—';
+}
+function getRadio(name) { return radios[name] || '—'; }
+
+function startBriefing() {
+  state.briefStep = 1;
+  radios = {}; checks = {};
+  renderBriefStep();
+  showPage('pg-client-briefing');
+}
+
+function renderBriefStep() {
+  const s = STEPS[state.briefStep - 1];
+  document.getElementById('step-counter').textContent = `Etapa ${state.briefStep} de 5`;
+  document.getElementById('brief-progress').style.width = (state.briefStep / 5 * 100) + '%';
+  document.getElementById('brief-content').innerHTML = `
+    <div class="step-hdr">
+      <div class="step-tag">${s.tag}</div>
+      <h2 class="step-h">${s.title}</h2>
+      <p class="step-desc">${s.desc}</p>
+    </div>
+    <div style="padding:0 20px 20px">${s.fields()}</div>
+  `;
+  // Restore saved values
+  const d = state.briefData;
+  if(state.briefStep === 1) {
+    if(d.empresa) document.getElementById('f-empresa').value = d.empresa;
+    if(d.produto) document.getElementById('f-produto').value = d.produto;
+    if(d.diferencial) document.getElementById('f-diferencial').value = d.diferencial;
+  }
+  if(state.briefStep === 3) {
+    if(d.crm) document.getElementById('f-crm').value = d.crm;
+  }
+  if(state.briefStep === 4) {
+    if(d.conteudo) document.getElementById('f-conteudo').value = d.conteudo;
+  }
+  if(state.briefStep === 5) {
+    if(d.referencias) document.getElementById('f-refs').value = d.referencias;
+    if(d.cores) document.getElementById('f-cores').value = d.cores;
+    if(d.obs) document.getElementById('f-obs').value = d.obs;
+  }
+
+  document.getElementById('brief-nav').innerHTML = `
+    ${state.briefStep > 1 ? '<button class="btn-back-step" onclick="briefPrev()">← Voltar</button>' : ''}
+    ${state.briefStep < 5
+      ? '<button class="btn-next-step" onclick="briefNext()">Próximo →</button>'
+      : '<button class="btn-finish-step" onclick="finishBriefing()">✅ Finalizar</button>'}
+  `;
+  document.getElementById('brief-content').scrollTop = 0;
+}
+
+function briefNext() {
+  if(!validateBriefStep()) return;
+  saveBriefStep();
+  state.briefStep++;
+  renderBriefStep();
+}
+function briefPrev() {
+  saveBriefStep();
+  state.briefStep--;
+  renderBriefStep();
+}
+
+function saveBriefStep() {
+  const d = state.briefData;
+  if(state.briefStep === 1) {
+    d.empresa    = document.getElementById('f-empresa')?.value.trim() || '';
+    d.produto    = document.getElementById('f-produto')?.value.trim() || '';
+    d.diferencial= document.getElementById('f-diferencial')?.value.trim() || '—';
+  }
+  if(state.briefStep === 2) {
+    d.objetivo = getChecked('cg-objetivo');
+    d.acao = getRadio('acao').includes('Outro')
+      ? (document.getElementById('f-acao-outro')?.value.trim() || '—')
+      : getRadio('acao');
+  }
+  if(state.briefStep === 3) {
+    d.dados  = getChecked('cg-dados');
+    d.crm    = document.getElementById('f-crm')?.value.trim() || '—';
+    d.login  = getRadio('login');
+  }
+  if(state.briefStep === 4) {
+    d.conteudo   = document.getElementById('f-conteudo')?.value.trim() || '';
+    d.video      = getRadio('video');
+    d.depoimentos= getRadio('depo');
+  }
+  if(state.briefStep === 5) {
+    d.referencias= document.getElementById('f-refs')?.value.trim() || '—';
+    d.logo       = getRadio('logo');
+    d.cores      = document.getElementById('f-cores')?.value.trim() || '—';
+    d.obs        = document.getElementById('f-obs')?.value.trim() || '—';
+  }
+}
+
+function validateBriefStep() {
+  if(state.briefStep === 1) {
+    if(!document.getElementById('f-empresa')?.value.trim()) { showToast('Informe o nome do projeto'); return false; }
+    if(!document.getElementById('f-produto')?.value.trim()) { showToast('Descreva o produto'); return false; }
+  }
+  if(state.briefStep === 2) {
+    if(!document.querySelector('#cg-objetivo .check-item.on')) { showToast('Selecione pelo menos um objetivo'); return false; }
+    if(!document.querySelector('#rg-acao .radio-item.on')) { showToast('Selecione a ação principal'); return false; }
+  }
+  if(state.briefStep === 3) {
+    if(!document.querySelector('#rg-login .radio-item.on')) { showToast('Informe sobre login'); return false; }
+  }
+  if(state.briefStep === 4) {
+    if(!document.getElementById('f-conteudo')?.value.trim()) { showToast('Descreva o conteúdo essencial'); return false; }
+  }
+  return true;
+}
+
+async function finishBriefing() {
+  saveBriefStep();
+  const d = state.briefData;
+  d.codigo  = state.clientCode;
+  d.data    = new Date().toLocaleString('pt-BR');
+  d.status  = 'Em Briefing';
+  d.origem  = 'app-mvplab';
+
+  // Save locally
+  const proj = getProject(state.clientCode);
+  if(proj) {
+    proj.briefing = d;
+    proj.status = 'Em Briefing';
+    upsertProject(proj);
+  }
+
+  // Send to Make
+  try {
+    await fetch(CONFIG.webhooks.briefing, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(d)
+    });
+  } catch(e) { console.warn('Webhook erro:', e); }
+
+  // WhatsApp confirmation link
+  const msg = encodeURIComponent(`Olá! Acabei de enviar o briefing do meu projeto (${state.clientCode}) pelo app MVPLab. Aguardo o próximo passo! 🚀`);
+  document.getElementById('wpp-success').href = `https://wa.me/${CONFIG.whatsapp}?text=${msg}`;
+
+  showPage('pg-client-success');
+}
+
+function downloadBriefingTxt() {
+  const d = state.briefData;
+  const txt = `
+=====================================
+  MVPLAB — BRIEFING DO PROJETO
+  Código: ${d.codigo}
+  Data: ${d.data}
+=====================================
+
+🚀 NEGÓCIO E PRODUTO
+Empresa: ${d.empresa}
+Produto: ${d.produto}
+Diferencial: ${d.diferencial}
+
+🎯 OBJETIVO
+Objetivos: ${d.objetivo}
+Ação Principal: ${d.acao}
+
+⚙️ DADOS E INTEGRAÇÕES
+Dados: ${d.dados}
+CRM: ${d.crm}
+Login: ${d.login}
+
+🎬 CONTEÚDO
+${d.conteudo}
+Vídeos: ${d.video}
+Depoimentos: ${d.depoimentos}
+
+🎨 VISUAL
+Referências: ${d.referencias}
+Logo: ${d.logo}
+Cores: ${d.cores}
+Obs: ${d.obs}
+
+=====================================
+  mvplab.app.br | (12) 99704-4683
+=====================================`.trim();
+  const blob = new Blob([txt], {type:'text/plain;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `Briefing-${d.codigo||'MVPLab'}.txt`;
+  a.click(); URL.revokeObjectURL(url);
+}
+
+// ═══════════════════════════════════
+// UTILS
+// ═══════════════════════════════════
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// PWA Install
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; });
+
+// Init
+switchRole('manager');
+</script>
+</body>
+</html>
