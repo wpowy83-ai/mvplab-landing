@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- SEO PRIMARY -->
-<title>MVPLab — Criação de MVP em 7 Dias | Agência de Desenvolvimento de Startups no Brasil</title>
-<meta name="description" content="Transforme sua ideia em um MVP funcional em até 7 dias. Desenvolvimento de aplicativos, sites e produtos digitais para startups e empreendedores. Planos a partir de R$1.497. Fale agora!">
-<meta name="keywords" content="criar MVP, desenvolvimento de MVP, MVP para startups, como criar um MVP, agência de desenvolvimento de software, criar aplicativo, desenvolvimento de app barato, MVP Brasil, validar ideia de negócio, criar site profissional, desenvolvimento ágil, produto mínimo viável, startup, lançar produto digital, MVP rápido">
+<title>MVPLab — Seu MVP em 7 Dias | A partir de R$1.497</title>
+<meta name="description" content="Transforme sua ideia em MVP funcional em até 7 dias. App, site ou sistema para startups e empreendedores. 3x mais barato que agências. A partir de R$1.497.">
+<meta name="keywords" content="criar MVP, criar aplicativo, desenvolvimento de aplicativo, produto mínimo viável, MVP para startups, agência desenvolvimento de software, criar app Brasil, MVP rápido, validar ideia de negócio, criar site profissional, desenvolvimento ágil, startup Brasil, lançar produto digital, MVP barato, como criar MVP, desenvolvimento de software Brasil">
 <meta name="author" content="MVPLab">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.mvplab.app.br">
@@ -30,7 +30,7 @@
 <meta name="twitter:description" content="Criamos o produto mínimo viável do seu negócio. Rápido, funcional e acessível. A partir de R$1.497.">
 <meta name="twitter:image" content="https://www.mvplab.app.br/og-image.png">
 
-<!-- Schema.org Structured Data -->
+<!-- Schema.org Structured Data — Serviço -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -38,9 +38,70 @@
   "name": "MVPLab",
   "description": "Agência especializada em desenvolvimento de MVP para startups e empreendedores brasileiros. Entrega em até 7 dias.",
   "url": "https://www.mvplab.app.br",
+  "telephone": "+5512997044683",
   "areaServed": "BR",
   "priceRange": "R$1.497 - R$5.997",
-  "serviceType": ["MVP Development", "Software Development", "App Development", "Web Development"]
+  "currenciesAccepted": "BRL",
+  "paymentAccepted": "PIX, Cartão de crédito, Transferência",
+  "serviceType": ["MVP Development", "Software Development", "App Development", "Web Development", "Landing Page", "Sistema Web"]
+}
+</script>
+
+<!-- Schema.org FAQ — aparece nas respostas do Google -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "O que é MVP e por que preciso de um?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MVP (Produto Mínimo Viável) é a versão mais simples do seu produto que já resolve um problema real. Em vez de investir meses e fortunas em algo completo, você lança o essencial, valida com usuários reais e cresce com dados — reduzindo risco e aumentando chances de sucesso."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Realmente entregam o MVP em 7 dias?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim! Para os planos Starter e Pro, a entrega média é de 5 a 7 dias úteis após aprovação do briefing. Projetos Scale podem levar até 14 dias dependendo da complexidade das integrações."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quanto custa desenvolver um MVP no Brasil?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "O mercado tradicional cobra entre R$80.000 e R$300.000 por um MVP completo. Na MVPLab, nossos planos vão de R$1.497 (Starter) a R$5.997 (Scale), com entrega em dias — não meses."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Preciso saber programar para contratar a MVPLab?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Não! Nossa proposta é exatamente essa — você traz a ideia, descreve o problema que quer resolver, e nós cuidamos de tudo tecnicamente. Nenhuma linha de código da sua parte."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "O produto fica no meu nome e eu tenho o código?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "100%. Ao finalizar o projeto, você recebe todos os acessos — código-fonte, domínio e hospedagem. É seu por completo, sem dependência da MVPLab para operar."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quais formas de pagamento vocês aceitam?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Aceitamos PIX, cartão de crédito (parcelado em até 6x) e transferência bancária. Trabalhamos com 50% de entrada e 50% na entrega do projeto."
+      }
+    }
+  ]
 }
 </script>
 
@@ -577,6 +638,126 @@
     const el = document.getElementById('wl-count');
     if(el) el.textContent = count;
   }
+</script>
+
+<!-- ===== BOTÃO FLUTUANTE WHATSAPP ===== -->
+<style>
+.wa-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+.wa-bubble {
+  background: #fff;
+  color: #1a1a2e;
+  border-radius: 16px;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  max-width: 220px;
+  line-height: 1.4;
+  animation: wa-bubble-in 0.4s ease;
+  position: relative;
+}
+.wa-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  right: 22px;
+  border: 8px solid transparent;
+  border-top-color: #fff;
+  border-bottom: none;
+}
+.wa-bubble-close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #888;
+  background: none;
+  border: none;
+  line-height: 1;
+}
+.wa-btn {
+  width: 60px;
+  height: 60px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.wa-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 28px rgba(37,211,102,0.6);
+}
+.wa-btn svg {
+  width: 32px;
+  height: 32px;
+  fill: #fff;
+}
+.wa-pulse {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(37,211,102,0.35);
+  animation: wa-pulse 2s infinite;
+}
+@keyframes wa-pulse {
+  0%   { transform: scale(1); opacity: 0.6; }
+  70%  { transform: scale(1.6); opacity: 0; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+@keyframes wa-bubble-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media(max-width:480px) {
+  .wa-float { bottom: 18px; right: 16px; }
+  .wa-bubble { font-size: 12px; max-width: 190px; }
+}
+</style>
+
+<div class="wa-float" id="wa-float">
+  <div class="wa-bubble" id="wa-bubble">
+    <button class="wa-bubble-close" onclick="document.getElementById('wa-bubble').style.display='none'" aria-label="Fechar">×</button>
+    💬 Ficou com dúvida? Fala com a gente agora — é rápido e sem compromisso!
+  </div>
+  <div style="position:relative;">
+    <div class="wa-pulse"></div>
+    <a class="wa-btn"
+       href="https://wa.me/5512997044683?text=Olá!%20Vi%20o%20site%20da%20MVPLab%20e%20quero%20saber%20mais%20sobre%20criação%20de%20MVP.%20Pode%20me%20ajudar%3F"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Falar no WhatsApp"
+       onclick="document.getElementById('wa-bubble').style.display='none'">
+      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 2C8.268 2 2 8.268 2 16c0 2.47.67 4.78 1.83 6.77L2 30l7.43-1.79A13.94 13.94 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.5c-2.3 0-4.46-.62-6.32-1.7l-.45-.27-4.67 1.13 1.18-4.54-.3-.47A11.48 11.48 0 014.5 16c0-6.352 5.148-11.5 11.5-11.5S27.5 9.648 27.5 16 22.352 27.5 16 27.5zm6.3-8.61c-.35-.17-2.06-1.01-2.38-1.13-.32-.11-.55-.17-.78.17-.23.35-.9 1.13-1.1 1.36-.2.23-.4.26-.75.09-.35-.17-1.47-.54-2.8-1.72-1.03-.92-1.73-2.06-1.93-2.4-.2-.35-.02-.53.15-.7.15-.15.35-.4.52-.6.17-.2.23-.35.35-.58.12-.23.06-.43-.03-.6-.09-.17-.78-1.88-1.07-2.58-.28-.68-.57-.59-.78-.6h-.66c-.23 0-.6.09-.91.43-.32.35-1.2 1.17-1.2 2.86 0 1.68 1.23 3.31 1.4 3.54.17.23 2.42 3.7 5.86 5.19.82.35 1.46.56 1.96.72.82.26 1.57.22 2.16.13.66-.1 2.06-.84 2.35-1.65.29-.81.29-1.5.2-1.65-.09-.15-.32-.23-.67-.4z"/>
+      </svg>
+    </a>
+  </div>
+</div>
+
+<script>
+  // Oculta o balão após 8 segundos automaticamente
+  setTimeout(() => {
+    const b = document.getElementById('wa-bubble');
+    if(b) b.style.display = 'none';
+  }, 8000);
 </script>
 </body>
 </html>
