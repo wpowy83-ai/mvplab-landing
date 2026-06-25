@@ -14,11 +14,25 @@
 <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script>
+// Force classic JSX runtime — prevents Babel from generating 'import React' statements
+Babel.registerPreset('react-classic', {
+  plugins: [
+    [Babel.availablePlugins['transform-react-jsx'], {
+      runtime: 'classic',
+      pragma: 'React.createElement',
+      pragmaFrag: 'React.Fragment'
+    }]
+  ]
+});
+</script>
 </head>
 <body>
 <div id="root"></div>
 
-<script type="text/babel" data-presets="react">
+<script type="text/babel" data-presets="react-classic">
+/* @jsx React.createElement */
+/* @jsxFrag React.Fragment */
 // ─────────────────────────────────────────────────────────────────────────────
 // LOGO (inlined)
 // ─────────────────────────────────────────────────────────────────────────────
