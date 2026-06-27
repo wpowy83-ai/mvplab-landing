@@ -259,13 +259,34 @@
   .faq-item.open .faq-a{max-height:200px;padding:0 24px 20px;}
   .faq-item.open .faq-arrow{transform:rotate(180deg);}
 
-  /* CTA */
+  /* CTA FINAL REDESIGN */
   .cta-final{text-align:center;padding:100px 24px;}
-  .cta-box{background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(59,130,246,.15));border:1px solid rgba(124,58,237,.3);border-radius:24px;padding:60px 40px;max-width:700px;margin:0 auto;}
-  .cta-box h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:900;margin-bottom:16px;}
-  .cta-box p{color:var(--muted);margin-bottom:36px;font-size:1rem;line-height:1.7;}
-  .cta-wpp{display:inline-flex;align-items:center;gap:12px;background:#25d366;color:#fff;padding:16px 36px;border-radius:12px;font-weight:700;font-size:1.05rem;text-decoration:none;transition:.2s;}
-  .cta-wpp:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(37,211,102,.3);}
+  .cta-box{background:linear-gradient(135deg,rgba(124,58,237,.12),rgba(59,130,246,.10));border:1px solid rgba(124,58,237,.35);border-radius:28px;padding:64px 48px;max-width:700px;margin:0 auto;position:relative;overflow:hidden;}
+  .cta-box::before{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(124,58,237,.15) 0%,transparent 70%);top:-200px;left:50%;transform:translateX(-50%);pointer-events:none;}
+  .cta-scarcity-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.35);color:#f87171;padding:8px 20px;border-radius:999px;font-size:.78rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:28px;}
+  .cta-scarcity-badge .dot{width:8px;height:8px;background:#ef4444;border-radius:50%;display:inline-block;animation:pulse 1.5s infinite;}
+  .cta-box h2{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;margin-bottom:14px;line-height:1.15;}
+  .cta-box>p{color:var(--muted);font-size:1rem;line-height:1.7;margin-bottom:0;}
+  .slots-visual{margin:28px 0;padding:22px 28px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;}
+  .slots-label{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px;}
+  .slots-grid{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-bottom:14px;}
+  .slot{width:34px;height:34px;border-radius:7px;}
+  .slot.taken{background:rgba(124,58,237,.3);border:1px solid rgba(124,58,237,.5);position:relative;}
+  .slot.taken::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#a78bfa;font-size:13px;font-weight:700;}
+  .slot.open{background:rgba(16,185,129,.12);border:1.5px solid #10b981;animation:slot-glow 2s infinite;}
+  @keyframes slot-glow{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,.4)}50%{box-shadow:0 0 0 5px rgba(16,185,129,0)}}
+  .slots-remaining{font-size:.88rem;color:#34d399;font-weight:700;letter-spacing:.3px;}
+  .cta-form{display:grid;gap:12px;margin-top:28px;text-align:left;}
+  .cta-form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .cta-input{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#fff;padding:14px 18px;border-radius:10px;font-size:.95rem;font-family:'Inter',sans-serif;outline:none;transition:.2s;width:100%;}
+  .cta-input:focus{border-color:var(--purple);background:rgba(124,58,237,.08);}
+  .cta-input::placeholder{color:var(--muted);}
+  .cta-submit{background:linear-gradient(135deg,#7c3aed,#3b82f6);color:#fff;border:none;padding:16px 32px;border-radius:10px;font-weight:700;font-size:1rem;cursor:pointer;transition:.2s;width:100%;letter-spacing:.3px;margin-top:4px;}
+  .cta-submit:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(124,58,237,.45);}
+  .cta-submit:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+  .cta-note{font-size:.78rem;color:var(--muted);margin-top:14px;text-align:center;}
+  .cta-success{display:none;padding:24px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);border-radius:12px;color:#34d399;font-weight:600;margin-top:16px;}
+  @media(max-width:600px){.cta-box{padding:40px 24px;}.cta-form-row{grid-template-columns:1fr;}}
 
   footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;color:var(--muted);font-size:.85rem;}
 
@@ -308,7 +329,7 @@
     <h1>Sua ideia vira um<br><span>MVP real</span> em dias</h1>
     <p class="hero-sub">Criamos o <strong>produto mínimo viável</strong> do seu negócio com tecnologia de ponta. Rápido, funcional e pronto para conquistar seus primeiros clientes — sem precisar gastar R$80.000 em agência tradicional.</p>
     <div class="hero-btns">
-      <a href="#contact" class="btn-primary">Quero meu MVP agora</a>
+      <a href="#waitlist" class="btn-primary">Garantir minha vaga</a>
       <a href="#how" class="btn-secondary">Como funciona?</a>
     </div>
     <div class="hero-stats">
@@ -481,7 +502,7 @@
           <li>Deploy + domínio configurado</li>
           <li>7 dias de suporte</li>
         </ul>
-        <button class="plan-btn outline" onclick="window.open('https://wa.me/5512997044683?text=Olá! Tenho interesse no plano Starter da MVPLab','_blank')">Quero o Starter</button>
+        <a href="#waitlist" class="plan-btn outline">Garantir vaga — Starter</a>
       </div>
       <div class="price-card featured">
         <div class="popular-badge">⭐ Mais popular</div>
@@ -496,7 +517,7 @@
           <li>Google Analytics configurado</li>
           <li>30 dias de suporte</li>
         </ul>
-        <button class="plan-btn primary" onclick="window.open('https://wa.me/5512997044683?text=Olá! Tenho interesse no plano Pro da MVPLab','_blank')">Quero o Pro</button>
+        <a href="#waitlist" class="plan-btn primary">Garantir vaga — Pro</a>
       </div>
       <div class="price-card">
         <div class="plan-name">Scale</div>
@@ -510,7 +531,7 @@
           <li>60 dias de suporte</li>
           <li>Consultoria de lançamento</li>
         </ul>
-        <button class="plan-btn outline" onclick="window.open('https://wa.me/5512997044683?text=Olá! Tenho interesse no plano Scale da MVPLab','_blank')">Quero o Scale</button>
+        <a href="#waitlist" class="plan-btn outline">Garantir vaga — Scale</a>
       </div>
     </div>
   </div>
@@ -576,12 +597,32 @@
 <!-- CTA FINAL -->
 <section class="cta-final" id="contact">
   <div class="cta-box">
-    <h2>Pronto para tirar sua ideia do papel?</h2>
-    <p>Fale com a gente agora pelo WhatsApp. É rápido, sem compromisso e sem enrolação. Vamos analisar sua ideia gratuitamente.</p>
-    <a class="cta-wpp" href="https://wa.me/5512997044683?text=Olá! Quero saber mais sobre a MVPLab" target="_blank">
-      <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Falar no WhatsApp
-    </a>
+    <div class="cta-scarcity-badge"><span class="dot"></span> Apenas 15 vagas por mês</div>
+
+    <h2>Pronto para tirar sua<br><span style="background:linear-gradient(135deg,#a855f7,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">ideia do papel?</span></h2>
+    <p>Trabalhamos com no máximo <strong style="color:var(--text)">15 projetos por mês</strong> para garantir qualidade e prazo. Entre na lista — quando a vaga abrir, você é o <strong style="color:var(--text)">primeiro a saber</strong>, com condição exclusiva.</p>
+
+    <div class="slots-visual">
+      <div class="slots-label">Disponibilidade junho / 2026</div>
+      <div class="slots-grid">
+        <div class="slot taken"></div><div class="slot taken"></div><div class="slot taken"></div>
+        <div class="slot taken"></div><div class="slot taken"></div><div class="slot taken"></div>
+        <div class="slot taken"></div><div class="slot taken"></div><div class="slot taken"></div>
+        <div class="slot taken"></div><div class="slot taken"></div>
+        <div class="slot open"></div><div class="slot open"></div><div class="slot open"></div><div class="slot open"></div>
+      </div>
+      <div class="slots-remaining">⚡ 4 vagas disponíveis agora</div>
+    </div>
+
+    <form class="cta-form" id="cta-form" onsubmit="ctaSubmit(event)">
+      <div class="cta-form-row">
+        <input class="cta-input" id="cta-name" type="text" placeholder="Seu nome completo" required>
+        <input class="cta-input" id="cta-email" type="email" placeholder="Seu melhor e-mail" required>
+      </div>
+      <button class="cta-submit" type="submit" id="cta-btn">Garantir minha vaga na lista →</button>
+    </form>
+    <div class="cta-success" id="cta-success">✓ Você está na lista! Entraremos em contato assim que uma vaga abrir.</div>
+    <p class="cta-note">🔒 Sem spam. Seus dados são usados exclusivamente para avisar sobre vagas abertas.</p>
   </div>
 </section>
 
@@ -662,33 +703,12 @@
   }
 </script>
 
-<!-- ===== BOTÃO FLUTUANTE WHATSAPP ===== -->
+<!-- WHATSAPP FLOAT REMOVED -->
 <style>
-.wa-float {
-  position: fixed;
-  bottom: 28px;
-  right: 28px;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 10px;
+.wa-float-DISABLED {
+  display: none;
 }
-.wa-bubble {
-  background: #fff;
-  color: #1a1a2e;
-  border-radius: 16px;
-  padding: 12px 16px;
-  font-size: 13px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
-  max-width: 220px;
-  line-height: 1.4;
-  animation: wa-bubble-in 0.4s ease;
-  position: relative;
-}
-.wa-bubble::after {
+.wa-bubble-DISABLED::after {
   content: '';
   position: absolute;
   bottom: -8px;
@@ -754,32 +774,26 @@
 }
 </style>
 
-<div class="wa-float" id="wa-float">
-  <div class="wa-bubble" id="wa-bubble">
-    <button class="wa-bubble-close" onclick="document.getElementById('wa-bubble').style.display='none'" aria-label="Fechar">×</button>
-    💬 Ficou com dúvida? Fala com a gente agora — é rápido e sem compromisso!
-  </div>
-  <div style="position:relative;">
-    <div class="wa-pulse"></div>
-    <a class="wa-btn"
-       href="https://wa.me/5512997044683?text=Olá!%20Vi%20o%20site%20da%20MVPLab%20e%20quero%20saber%20mais%20sobre%20criação%20de%20MVP.%20Pode%20me%20ajudar%3F"
-       target="_blank"
-       rel="noopener noreferrer"
-       aria-label="Falar no WhatsApp"
-       onclick="document.getElementById('wa-bubble').style.display='none'">
-      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-        <path d="M16 2C8.268 2 2 8.268 2 16c0 2.47.67 4.78 1.83 6.77L2 30l7.43-1.79A13.94 13.94 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.5c-2.3 0-4.46-.62-6.32-1.7l-.45-.27-4.67 1.13 1.18-4.54-.3-.47A11.48 11.48 0 014.5 16c0-6.352 5.148-11.5 11.5-11.5S27.5 9.648 27.5 16 22.352 27.5 16 27.5zm6.3-8.61c-.35-.17-2.06-1.01-2.38-1.13-.32-.11-.55-.17-.78.17-.23.35-.9 1.13-1.1 1.36-.2.23-.4.26-.75.09-.35-.17-1.47-.54-2.8-1.72-1.03-.92-1.73-2.06-1.93-2.4-.2-.35-.02-.53.15-.7.15-.15.35-.4.52-.6.17-.2.23-.35.35-.58.12-.23.06-.43-.03-.6-.09-.17-.78-1.88-1.07-2.58-.28-.68-.57-.59-.78-.6h-.66c-.23 0-.6.09-.91.43-.32.35-1.2 1.17-1.2 2.86 0 1.68 1.23 3.31 1.4 3.54.17.23 2.42 3.7 5.86 5.19.82.35 1.46.56 1.96.72.82.26 1.57.22 2.16.13.66-.1 2.06-.84 2.35-1.65.29-.81.29-1.5.2-1.65-.09-.15-.32-.23-.67-.4z"/>
-      </svg>
-    </a>
-  </div>
-</div>
-
 <script>
-  // Oculta o balão após 8 segundos automaticamente
-  setTimeout(() => {
-    const b = document.getElementById('wa-bubble');
-    if(b) b.style.display = 'none';
-  }, 8000);
+  // CTA Final form submit — reuses same Make webhook
+  async function ctaSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('cta-btn');
+    const name = document.getElementById('cta-name').value.trim();
+    const email = document.getElementById('cta-email').value.trim();
+    if (!name || !email) return;
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    try {
+      await fetch(MAKE_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, source: 'CTA Final' })
+      });
+    } catch(_) {}
+    document.getElementById('cta-form').style.display = 'none';
+    document.getElementById('cta-success').style.display = 'block';
+  }
 </script>
 </body>
 </html>
